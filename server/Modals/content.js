@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const contentSchema= new mongoose.Schema({
-    name:{
+    chat:{
         type : String,
         required : true
     }
 })
 
-const family = mongoose.model('contents',contentSchema);
-module.exports = family
+const cont = mongoose.model('contents',contentSchema);
+module.exports = cont

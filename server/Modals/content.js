@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const contentSchema= new mongoose.Schema({
     name:{
         type : String,
@@ -9,5 +8,4 @@ const contentSchema= new mongoose.Schema({
 })
 
 const family = mongoose.model('contents',contentSchema);
-
 module.exports = family

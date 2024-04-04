@@ -93,6 +93,51 @@ router.post('/mainDatas', async (req, res) => {
 });
 
 
+router.put('/contents/:id',async (req, res) => {
+    try {
+        const updatedPost = await content.findByIdAndUpdate(req.params.id, req.body, {
+            new: true, 
+        });
+
+        if (!updatedPost) {
+            return res.status(404).json({ error: 'Data not found' });
+        } 
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/verifys/:id',async (req, res) => {
+    try {
+        const updatedPost = await verify.findByIdAndUpdate(req.params.id, req.body, {
+            new: true, 
+        });
+
+        if (!updatedPost) {
+            return res.status(404).json({ error: 'Data not found' });
+        } 
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+router.put('/mainDatas/:id',async (req, res) => {
+    try {
+        const updatedPost = await mainData.findByIdAndUpdate(req.params.id, req.body, {
+            new: true, 
+        });
+
+        if (!updatedPost) {
+            return res.status(404).json({ error: 'Data not found' });
+        } 
+        res.status(200).json(updatedPost);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 
 

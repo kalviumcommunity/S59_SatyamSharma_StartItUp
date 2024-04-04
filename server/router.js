@@ -3,10 +3,17 @@ const router = express.Router();
 const content = require('./Modals/content')
 const mainData = require('./Modals/mainData')
 const verify = require('./Modals/verify')
+const {schemaChat} = require('./joiSchemaChat')
+const {schemaVerify} = require('./joiSchemaVerify')
+const {schemaMain} = require('./joiSchemaMain')
+
 const {connectDB} = require('./db')
 require('dotenv').config()
-
 connectDB()
+
+
+
+
 
 router.get('/contents',async(req,res)=>{
     try{
@@ -44,7 +51,7 @@ router.get('/verifys',async(req,res)=>{
 
 router.post('/contents', async (req, res) => {
     try {
-        const { error } = req.body;
+        const { error } = schemaChat.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
@@ -59,7 +66,7 @@ router.post('/contents', async (req, res) => {
 
 router.post('/verifys', async (req, res) => {
     try {
-        const { error } = req.body;
+        const { error } = schemaVerify.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
@@ -73,7 +80,7 @@ router.post('/verifys', async (req, res) => {
 
 router.post('/mainDatas', async (req, res) => {
     try {
-        const { error } = req.body;
+        const { error } = schemaMain.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }

@@ -7,5 +7,5 @@ const contentSchema= new mongoose.Schema({
     }
 })
 
-const cont = mongoose.model('contents',contentSchema);
-module.exports = cont
+const content = mongoose.model('contents',contentSchema);
+module.exports = content

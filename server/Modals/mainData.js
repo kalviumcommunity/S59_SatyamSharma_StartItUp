@@ -45,11 +45,8 @@ const mainData= new mongoose.Schema({
     requestBox:{
         type: Boolean
     },
-    requestBox:{
-        type: String
-    },
     reportIssue:{
-        type: Boolean
+        type: String
     }
 })
 

@@ -12,7 +12,7 @@ function Footer() {
           <a href="https://github.com/Satyamsharmahp36" target='blank'>
             <img className='w-10 sm:w-10 hover:scale-110 transform transition' src={github} alt="" />
           </a>
-          <a href="https://www.linkedin.com/in/satyam-sharma-a21041289/" target='blank'>
+          <a href="https://www.linkedin.com/in/satyam-sharma-a21041289/" target='_blank'>
             <img className='w-10 sm:w-10 hover:scale-110 transform transition' src={linked} alt="" />
           </a>
         </div>

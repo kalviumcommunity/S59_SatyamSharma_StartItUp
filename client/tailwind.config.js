@@ -22,6 +22,7 @@ export default {
         'rubik-bubbles': ['Rubik Bubbles', 'sans-serif'],
         'sofia': ['Sofia', 'cursive'],
       }
+    
     },
   },
   plugins: [],

@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import slidshow from '../assets/slidshow.gif'
 import ham from '../assets/ham.png'
 import cross from '../assets/cro.png'
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className=' bg-black w-full h-full lg:h-screen text-white flex justify-between flex-col lg:flex-row pt-20 lg:pt-0 items-center'>
       <div className='lg:hidden top-10 sm:top-20 left-2 z-30 absolute'>
@@ -40,22 +42,28 @@ function Home() {
         <div className='p-1 w-4/5 text-sm font-itim'>
         Whether you're an aspiring entrepreneur seeking guidance, an investor hunting for promising ventures, or simply passionate about the world of startups, we've got you covered. Dive into insightful articles , pitches , expert advice, and engaging discussions to fuel your entrepreneurial spirit.
         </div>
+        <Link to="/streaming">
         <div className='text-3xl lg:mt-10 mt-6 p-3  hover:scale-105 bg-gradient-to-r from-blue-600 font-itim to-violet-600 rounded-xl'>
           Start Streaming
         </div>
+        </Link>
       </div>
       <div className='p-1 flex flex-col h-3/4 justify-between lg:mt-9  items-center text-center'>
       <div className='lg:mt-20 mt-10 flex w-full items-center justify-center'>
       <img src={slidshow} alt="SideShow" className="scale-110  transform transition w-3/4  lg:w-4/5 sm:rounded-xl rounded-md"/>
       </div>
+      <Link to='/publishUser'>
       <div className='text-2xl mt-10 p-3 font-itim   hover:scale-105 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl'>
           Publish Content
         </div>
+      </Link>
+        
+        <Link to='/verifiedUser'>
         <div className='text-2xl mt-10 p-3 lg:mb-0 mb-16  hover:scale-105 font-itim bg-gradient-to-r  from-cyan-600 to-blue-600 rounded-xl'>
           Verified Investor
         </div>
+        </Link>
       </div>
-
     </div>
   )
 }

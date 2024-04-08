@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import galaxia from "./src/assets/galaxia.gif"
 export default {
   content: [
     "./index.html",
@@ -22,6 +23,7 @@ export default {
         'rubik-bubbles': ['Rubik Bubbles', 'sans-serif'],
         'sofia': ['Sofia', 'cursive'],
       }
+    
     },
   },
   plugins: [],

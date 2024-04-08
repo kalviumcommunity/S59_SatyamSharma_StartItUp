@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Img from '../assets/startitup.png'
 import UserPhote from '../assets/user.png'
+import { DarkModeToggle } from "react-dark-mode-toggle-2";
 
 function Navebar() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
   return (
     <div className='bg-gradient-to-r from-slate-900 z-50 to-slate-800 lg:p-0  w-full fixed p-1 top-0 lg:top-0'>
         <nav className="flex justify-between items-center 
@@ -15,6 +17,7 @@ function Navebar() {
         </Link>
         </div>
         <div className='text-white flex items-center justify-between font-serif font-thin text-xs lg:text-xl lg:p-6 sm:text-xl sm:p-2 '>
+
         <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>Contact Us</h3>
             <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim  '>About</h3>
             <Link to='/login'>

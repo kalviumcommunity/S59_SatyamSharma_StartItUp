@@ -59,4 +59,4 @@ This platform will help new startups to publish their ideas to common people , a
 
 ***Server is live on Render***
 
-**Deployed Link :-** (Start-It-Up)[https://start-it-up.netlify.app/]
+**Deployed Link :-** [Start-It-Up](https://start-it-up.netlify.app/)

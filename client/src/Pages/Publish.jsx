@@ -43,7 +43,7 @@ function Publish() {
 		<div className="relative px-4  bg-gradient-to-r from-slate-400 to-gray-600 shadow-lg sm:rounded-3xl sm:p-10">
 			<div className="max-w-md mx-auto">
 				<div>
-					<h1 className=" font-semibold font-itim text-4xl">Investor Profile</h1>
+					<h1 className=" font-semibold font-itim text-4xl">Content Details</h1>
 				</div>
 				<div className="divide-y divide-gray-200">
 					<div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">

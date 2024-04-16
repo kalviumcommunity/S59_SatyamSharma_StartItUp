@@ -21,7 +21,10 @@ export default {
         'roboto': ['Roboto', 'sans-serif'],
         'rubik-bubbles': ['Rubik Bubbles', 'sans-serif'],
         'sofia': ['Sofia', 'cursive'],
-      }
+      },
+      minWidth: {
+        '400px': '400px',
+      },
     
     },
   },

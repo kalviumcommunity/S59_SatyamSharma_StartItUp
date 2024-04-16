@@ -15,10 +15,16 @@ function Home() {
       <div className= {`bg-gradient-to-r from-slate-900 to-slate-800 lg:h-3/4 h-4/5 lg:flex sm:top-20  lg:items-center z-20 left-0 top-10 p-2  lg:flex-col rounded-lg lg:m-5 lg:mt-20 ${isOpen?"fixed":"hidden"}  `}>
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?<img src={cross} alt="close" className="transform transition w-8 rounded-md"/>:null}</button>
         <div className='flex h-full items-center flex-col '>
+          <Link to='/feedback'>
         <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-3 w-32 mx-6'>Feedback</button>
+        </Link>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Trending</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Investor</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Strike</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>New</button>
+        
+
         {isOpen?
         <div className='bottom-5 absolute'>
         <button className='bg-gradient-to-r from-pink-500 to-rose-500 p-2 font-itim font-semibold  hover:scale-105 rounded '>Report Issue</button>

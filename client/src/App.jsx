@@ -7,7 +7,7 @@ import VerifiedUser from './Pages/VerifiedUser';
 import Publish from './Pages/Publish';
 import Streaming from './components/Streaming';
 import Feedback from './Pages/Feedback';
-
+import Trending from './Pages/Trending';
 
 function App() {
   return (
@@ -19,6 +19,9 @@ function App() {
         <Route path='publishUser' element={<Publish />} />
         <Route path='streaming' element={<Streaming />} />
         <Route path='feedback' element={<Feedback />} />
+        <Route path='trending' element={<Trending />} />
+
+        
         
       </Routes>
       <Footer/>

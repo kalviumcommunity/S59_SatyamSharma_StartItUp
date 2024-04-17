@@ -18,8 +18,10 @@ function Home() {
           <Link to='/feedback'>
         <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-3 w-32 mx-6'>Feedback</button>
         </Link>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
+        <Link to='/trending'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Trending</button>
+        </Link>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Investor</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Strike</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>New</button>

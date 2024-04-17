@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 function Trending() {
   const [color1, setColor1] = useState('');
@@ -9,20 +9,22 @@ function Trending() {
     generateRandomColors();
   }, []);
 
+  const getRandomDarkColor = useMemo(() => {
+    return () => {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * letters.length)];
+      }
+      return color;
+    };
+  }, []);
+
   const generateRandomColors = () => {
     const randomColor1 = getRandomDarkColor();
     const randomColor2 = getRandomDarkColor();
     setColor1(randomColor1);
     setColor2(randomColor2);
-  };
-
-  const getRandomDarkColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * letters.length)];
-    }
-    return color;
   };
 
   return (

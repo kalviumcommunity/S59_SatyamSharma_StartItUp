@@ -21,7 +21,9 @@ function Home() {
         <Link to='/trending'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Trending</button>
         </Link>
+        <Link to='/Connect'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
+        </Link>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Investor</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Strike</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>New</button>
@@ -51,7 +53,7 @@ function Home() {
         Whether you're an aspiring entrepreneur seeking guidance, an investor hunting for promising ventures, or simply passionate about the world of startups, we've got you covered. Dive into insightful articles , pitches , expert advice, and engaging discussions to fuel your entrepreneurial spirit.
         </div>
         <Link to="/streaming">
-        <div className='text-3xl lg:mt-10 mt-6 p-3  hover:scale-105 bg-gradient-to-r from-blue-600 font-itim to-violet-600 rounded-xl'>
+        <div className='text-3xl lg:mt-10 mt-6 flex  p-3  hover:scale-105 bg-gradient-to-r from-blue-600 font-itim to-violet-600 rounded-xl'>
           Start Streaming
         </div>
         </Link>

@@ -8,6 +8,8 @@ import Publish from './Pages/Publish';
 import Streaming from './components/Streaming';
 import Feedback from './Pages/Feedback';
 import Trending from './Pages/Trending';
+import ProfileCard from './Pages/Connect';
+import InvestorPro from './Pages/InvestorPro';
 
 function App() {
   return (
@@ -20,8 +22,8 @@ function App() {
         <Route path='streaming' element={<Streaming />} />
         <Route path='feedback' element={<Feedback />} />
         <Route path='trending' element={<Trending />} />
-
-        
+        <Route path='Connect' element={<ProfileCard />} />
+        <Route path='Connect/investorsPro' element={<InvestorPro />} />
         
       </Routes>
       <Footer/>

@@ -42,7 +42,7 @@ const LoginForm = () => {
             <div className='p-1 bg-blue-700  lg:py-8 lg:px-5 fixed top-64 rounded-2xl px-2 py-3 z-20'>
             <h1 className="text-4xl lg:text-5xl mb-5 font-semibold  text-center text-white">
               Login Successful <br />
-              <span className="text-center  text-sm">You will be redirected to Home page in <span className='text-xl text-blue-200'>{counter}</span> </span>  
+              <span className="text-center  text-sm">You will be redirected to Home page in <span className='text-xl text-blue-200'>3</span> </span>  
             </h1>
             </div>
           ) : null}

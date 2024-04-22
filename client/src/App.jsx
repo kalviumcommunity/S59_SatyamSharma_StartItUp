@@ -25,7 +25,7 @@ function App() {
         <Route path='trending' element={<Trending />} />
         <Route path='Connect' element={<ProfileCard />} />
         <Route path='Connect/investorsPro' element={<InvestorPro />} />
-        <Route path='LoginForm' element={<LoginForm />} />
+        <Route path='Login' element={<LoginForm />} />
 
         
       </Routes>

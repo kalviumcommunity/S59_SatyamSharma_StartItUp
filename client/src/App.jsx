@@ -10,6 +10,7 @@ import Feedback from './Pages/Feedback';
 import Trending from './Pages/Trending';
 import ProfileCard from './Pages/Connect';
 import InvestorPro from './Pages/InvestorPro';
+import LoginForm from './Pages/Login';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path='trending' element={<Trending />} />
         <Route path='Connect' element={<ProfileCard />} />
         <Route path='Connect/investorsPro' element={<InvestorPro />} />
+        <Route path='LoginForm' element={<LoginForm />} />
+
         
       </Routes>
       <Footer/>

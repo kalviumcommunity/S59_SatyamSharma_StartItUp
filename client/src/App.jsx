@@ -12,6 +12,7 @@ import ProfileCard from './Pages/Connect';
 import InvestorPro from './Pages/InvestorPro';
 import LoginForm from './Pages/Login';
 import FounderPro from './Pages/FounderPro';
+import Collection from './components/Collection';
 
 function App() {
   return (
@@ -28,9 +29,8 @@ function App() {
         <Route path='Connect/investorsPro' element={<InvestorPro />} />
         <Route path='Login' element={<LoginForm />} />
         <Route path='Connect/founderPro' element={<FounderPro />} />
+        <Route path='collection' element={<Collection />} />
 
-        
-        
       </Routes>
       <Footer/>
     </div>

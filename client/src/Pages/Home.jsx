@@ -24,8 +24,11 @@ function Home() {
         <Link to='/Connect'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
         </Link>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Investor</button>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Strike</button>
+        
+        <Link to='/collection'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Collections</button>
+        </Link>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Posts</button>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>New</button>
         
 

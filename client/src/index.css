@@ -261,7 +261,7 @@ body {
 /* Bckground gradient */
 
 .animated-background {
-    background-size: 100%;
+    background-size: 400%;
 
     -webkit-animation: animation 3s ease infinite;
     -moz-animation: animation 3s ease infinite;

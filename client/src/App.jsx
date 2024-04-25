@@ -13,6 +13,7 @@ import InvestorPro from './Pages/InvestorPro';
 import LoginForm from './Pages/Login';
 import FounderPro from './Pages/FounderPro';
 import Collection from './components/Collection';
+import Public from './Pages/Public';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='Login' element={<LoginForm />} />
         <Route path='Connect/founderPro' element={<FounderPro />} />
         <Route path='collection' element={<Collection />} />
+        <Route path='public' element={<Public />} />
 
       </Routes>
       <Footer/>

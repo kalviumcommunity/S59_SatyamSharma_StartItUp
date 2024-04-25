@@ -28,8 +28,11 @@ function Home() {
         <Link to='/collection'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Collections</button>
         </Link>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Posts</button>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>New</button>
+
+        <Link to='/public'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Public</button>
+        </Link>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Admin</button>
         
 
         {isOpen?

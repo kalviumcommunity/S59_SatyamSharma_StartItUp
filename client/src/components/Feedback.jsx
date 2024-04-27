@@ -1,11 +1,10 @@
 import React from 'react'
 
-function Feedback() {
+function Feedback(props) {
   return (
     <div className='flex items-center min-[450px]:flex-row  flex-col justify-around'>
-
         <div className='p-1 sm:w-2/6 w-full pt-10 sm:pt-0'>
-            <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-5xl pt-8 p-2 lg:text-7xl xl:text-8xl font-itim text-center min-[400px]:text-7xl  sm:text-6xl '>Your FeedBack Will Be Marked</h1>
+            <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-5xl pt-8 p-2 lg:text-7xl xl:text-8xl font-itim text-center min-[400px]:text-7xl  sm:text-6xl '>Your {props.nam} Will Be Marked</h1>
 
         </div>
     <div className="min-h-screen sm:w-1/2 w-3/4 m-10   flex flex-col  sm:py-12 sm:justify-center" >
@@ -18,7 +17,7 @@ function Feedback() {
     <div className="relative px-4  bg-gradient-to-r from-slate-400 to-gray-600 shadow-lg sm:rounded-3xl sm:p-10">
         <div className="max-w-md mx-auto">
             <div>
-                <h1 className=" font-semibold font-itim text-4xl">FeedBack Form</h1>
+                <h1 className=" font-semibold font-itim text-4xl">{props.nam}</h1>
             </div>
             <div className="divide-y divide-gray-200">
     <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">

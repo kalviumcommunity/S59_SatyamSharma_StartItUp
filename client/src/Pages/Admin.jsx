@@ -77,10 +77,10 @@ function Admin() {
 			<span className="text-sm text-gray-100">Jun 1, 2020</span>
 			<a rel="noopener noreferrer" href="#" className="px-2 py-1 font-bold rounded bg-green-600 hover:bg-green-700 dark:text-gray-50">FeedBack</a>
 		</div>
-		<div className="mt-3 lg:max-h-96 max-h-72 flex-col flex  overflow-y-auto md:flex-row bg-gray-900 p-4 rounded-2xl shadow-2xl">
-            <div className='md:w-1/2 w-full p-2 m-2' >
+		<div className="mt-3 flex-col justify-center items-center flex md:flex-row bg-gray-900 p-4 rounded-2xl shadow-2xl">
+            <div className='md:w-1/2 w-full lg:max-h-96 overflow-y-auto max-h-72 p-2 m-2'>
 			<h1 className="text-2xl font-bold">Topic Is this</h1>
-			<p className="mt-2">Tamquam ita veritas res equidem. Ea in ad expertus paulatim poterunt. Imo volo aspi novi tur. Ferre hic neque vulgo hae athei spero. Tantumdem naturales excaecant notaverim etc cau perfacile occurrere. Loco visa to du huic at in dixi aër. </p>
+			<p className="mt-2"> Aliquam nostrum dolorum vero libero omnis odit repudiandae error nobis laborum animi cupiditate optio iste, qui facilis assumenda provident at iure labore! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem autem vel placeat ipsa, veritatis beatae ad illo impedit incidunt quae dignissimos perspiciatis magnam totam mollitia reiciendis rerum nesciunt sit alias? Non ipsam optio porro quod asperiores minima similique, exercitationem facere! </p>
             </div>
             <div className='md:w-1/2 w-full p-6 m-2'>
             <div className="relative sm:max-w-xl sm:mx-auto">

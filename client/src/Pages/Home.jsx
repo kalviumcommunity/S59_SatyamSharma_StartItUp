@@ -32,17 +32,23 @@ function Home() {
         <Link to='/public'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Public</button>
         </Link>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Admin</button>
         
+        <Link to='/admin'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Admin</button>
+        </Link>
 
         {isOpen?
         <div className='bottom-5 absolute'>
+        <Link to='/report'>
         <button className='bg-gradient-to-r from-pink-500 to-rose-500 p-2 font-itim font-semibold  hover:scale-105 rounded '>Report Issue</button>
+        </Link>
         </div>:null}
         </div>
         {isOpen?null:
         <div>
+        <Link to='/report'>
         <button className='bg-gradient-to-r from-pink-500 to-rose-500 p-2 font-itim font-semibold  hover:scale-105 rounded lg:m-6'>Report Issue</button>
+        </Link>
         </div>
 }
 

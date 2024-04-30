@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ham from '../assets/ham.png'
 import cross from '../assets/cro.png'
+import { Link } from 'react-router-dom'
 
 
 function Publish() {
@@ -14,23 +15,39 @@ function Publish() {
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?<img src={cross} alt="close" className="transform transition w-8 rounded-md"/>:null}</button>
         <div className='flex h-full items-center flex-col '>
         <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-2 sm:mt-6 w-32 mx-6'>Instructions</button>
+		<Link to='investment'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Investment</button>
+		</Link>
+		<Link to='tokenization'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Tokenization</button>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Category</button>
+		</Link>
+		<Link to='contact'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Contact</button>
+		</Link>
+		<Link to='requestBox'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32'>Request Box</button>
+		</Link>
+		<Link to='addOn'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32'>Add-On's</button>
+		</Link>
         
 
         {isOpen?
+		
         <div className='bottom-5 absolute'>
+		<Link to='/report'>
         <button className='bg-gradient-to-r from-pink-500 to-rose-500 p-2 font-itim font-semibold  hover:scale-105 rounded '>Report Issue</button>
-        </div>:null}
+		</Link>
+        </div>
+		:null}
         </div>
         {isOpen?null:
         <div>
+		<Link to='/report'>
         <button className='bg-gradient-to-r from-pink-500 to-rose-500 p-2 font-itim font-semibold  hover:scale-105 rounded lg:m-6'>Report Issue</button>
+		</Link>
         </div>
+		
 }
 
       </div>

@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors')
 const routes = require('./router');
 const { connectDB, disconnectDB } = require('./db');
-
+const Authroutes= require('./Authroutes')
 const app = express();
 
 app.use(cors())
 app.use(express.json());
 
 app.use('/api', routes);
+app.use('/auth',Authroutes);
 
 const port = 1300;
 

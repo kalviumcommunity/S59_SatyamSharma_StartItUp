@@ -31,9 +31,9 @@ function Streaming() {
                 </div>
                 <div className='flex mt-3'>
                     <div className='flex flex-col lg:w-2/3   lg:mt-3 mt-0 '>
-                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Request Box</button>
-                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Request Box</button>
-                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Request Box</button>
+                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Founder Details</button>
+                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Investment</button>
+                        <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Contact Details</button>
                         <button className='text-black bg-white rounded-xl p-0.5 text-xs lg:my-1.5 my-1'>Request Box</button>
                     </div>
 

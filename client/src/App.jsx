@@ -15,6 +15,13 @@ import FounderPro from './Pages/FounderPro';
 import Collection from './components/Collection';
 import Public from './Pages/Public';
 import Admin from './Pages/Admin';
+import Investment from './Pages/Investment';
+import InvestmentDetails from './Pages/InvestmentDetails';
+import Tokenization from './Pages/Tokenization';
+import Contact from './Pages/Contact';
+import RequestBox from './Pages/RequestBox';
+import AddOn from './Pages/AddOn';
+
 
 function App() {
   return (
@@ -35,6 +42,12 @@ function App() {
         <Route path='public' element={<Public />} />
         <Route path='report' element={<Feedback nam={"Issue"} />} />
         <Route path='admin' element={<Admin />} />
+        <Route path='publishUser/investment' element={<Investment />} />
+        <Route path='publishUser/investment/InvestmentDetails' element={<InvestmentDetails />} />
+        <Route path='publishUser/tokenization' element={<Tokenization />} />
+        <Route path='publishUser/contact' element={<Contact />} />
+        <Route path='publishUser/addOn' element={<AddOn />} />
+        <Route path='publishUser/requestBox' element={<RequestBox />} />
       </Routes>
       <Footer/>
     </div>

@@ -1,52 +1,34 @@
 const mongoose = require('mongoose');
 
 const mainData= new mongoose.Schema({
-    company:{
+    uniqueId:{
         type : String,
         required : true
     },
-    drive:{
+    driveLink:{
         type: String,
         required : true
     },
-    description:{
+    thumbnail:{
         type :String,
         required : true
     },
-    founder:{
+    startUpName:{
         type :String,
         required :true
     },
-    userId:{
+    description:{
         type :String,
         required :true
     },
-    investment:{
-        type :Boolean
+    likeCount:{
+        type :Number
     },
-    investmentAmount:{
+    commentSection:{
         type :String
     },
-    PaymentMode:{
+    strikeButton:{
         type :String
-    },
-    token:{
-        type :Boolean
-    },
-    tokenValue:{
-        type: Number
-    },
-    contact:{
-        type :Boolean
-    },
-    contactDetails:{
-        type :String
-    },
-    requestBox:{
-        type: Boolean
-    },
-    reportIssue:{
-        type: String
     }
 })
 

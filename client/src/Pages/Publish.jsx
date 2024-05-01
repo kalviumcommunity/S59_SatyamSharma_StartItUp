@@ -15,6 +15,9 @@ function Publish() {
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?<img src={cross} alt="close" className="transform transition w-8 rounded-md"/>:null}</button>
         <div className='flex h-full items-center flex-col '>
         <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-2 sm:mt-6 w-32 mx-6'>Instructions</button>
+		<Link to='founderDetails'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Founder Details</button>
+		</Link>
 		<Link to='investment'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Investment</button>
 		</Link>
@@ -22,7 +25,7 @@ function Publish() {
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Tokenization</button>
 		</Link>
 		<Link to='contact'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Contact</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Details</button>
 		</Link>
 		<Link to='requestBox'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32'>Request Box</button>

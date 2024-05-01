@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const content = require('./Modals/content')
+const content = require('./Modals/public')
 const mainData = require('./Modals/mainData')
 const verify = require('./Modals/verify')
 const users=require('./Modals/user')
-const {schemaChat} = require('./joiSchemaChat')
-const {schemaVerify} = require('./joiSchemaVerify')
-const {schemaMain} = require('./joiSchemaMain')
+const {schemaChat} = require('./JoiSchemas/joiSchemaChat')
+const {schemaVerify} = require('./JoiSchemas/joiSchemaVerify')
+const {schemaMain} = require('./JoiSchemas/joiSchemaMain')
 const jwt =require('jsonwebtoken')
 const {connectDB} = require('./db')
 require('dotenv').config()

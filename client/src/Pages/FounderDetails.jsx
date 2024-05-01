@@ -1,57 +1,55 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Contact() {
+function FounderDetails() {
   return (
-    
-    <div className='flex  justify-center items-center'>  
+    <div>
+        <div className='flex  justify-center items-center'>  
         <div className='mt-36  rounded-2xl'>
-        <div className='w-full fixed lg:top-28 top-10 left-2 lg:mb-20 mb-10 justify-start items-center'>
+        <div className='w-full fixed lg:top-28 top-16 left-2 lg:mb-20 mb-10 justify-start items-center'>
         <Link to='/publishUser'>
         <button className=" m-2 items-center lg:px-2 p-1  lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600">
              GO BACK
             </button>
         </Link>
         </div>  
-    <div className="relative flex flex-col bg-white p-2 mb-16  text-gray-700 bg-transparent shadow-none rounded-xl bg-clip-border">
+    <div className="relative flex flex-col bg-white mb-16 p-2  text-gray-700 bg-transparent shadow-none rounded-xl bg-clip-border">
   <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-    Details
+    Founders Details
   </h4>
   
   <form className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
     <div className="flex flex-col gap-6 mb-1">
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Address
+        Name
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Street , Pin-Code "
+        <input placeholder="Names Of the Founders"
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
-
-      </div>
-      <h6
-        className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Contact Number
-      </h6>
-      <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="98160XXXXX"
-          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
-
       </div>
       <h6
         class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Pervious Investors
+        About You
       </h6>
       <div class="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Investor Name, Equity They Hold"
+        <input placeholder="Teams Roles ,Work Distribution"
           class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Message for Investor
+        Social Media
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Loans, Termsheet, Bank Statement"
+        <input placeholder="Social Media Profile Link"
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+      </div>
+      <h6
+        className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+        Profile Pic
+      </h6>
+      <div className="relative h-11 w-full min-w-[200px]">
+        <input placeholder="Group/Personal Pic"
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
 
@@ -89,7 +87,8 @@ function Contact() {
 </div>  
 </div> 
     </div>
+    </div>
   )
 }
 
-export default Contact
+export default FounderDetails

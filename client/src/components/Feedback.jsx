@@ -12,30 +12,34 @@ function Feedback(props) {
 
 <div className="relative py-3 sm:max-w-xl sm:mx-auto">
     <div
-        className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-700 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+        className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-700 rounded-2xl shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 transition-all duration-300 hover:-rotate-12 sm:rounded-3xl">
     </div>
-    <div className="relative px-4  bg-gradient-to-r from-slate-400 to-gray-600 shadow-lg sm:rounded-3xl sm:p-10">
+    <div className="relative px-4  bg-gradient-to-r from-slate-400 to-gray-600 rounded-2xl shadow-lg sm:rounded-3xl sm:p-10">
         <div className="max-w-md mx-auto">
             <div>
                 <h1 className=" font-semibold font-itim text-4xl">{props.nam}</h1>
             </div>
             <div className="divide-y divide-gray-200">
-    <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                    <div className="relative">
-                        <input autocomplete="off" id="Heading" name="Heading" type="contentbox" className="peer text-center placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Heading" />
-                        <label for="Heading" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Heading</label>
-                    </div>
+    <form className="py-8 flex flex-col justify-center items-center text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                <h1 className='w-full flex justify-start items-center font-bold '>Heading</h1>
+                    <input   
+                    required
+                    placeholder='Heading'
+                    name="Heading"
+                    type='text' 
+                    className="peer rounded-2xl text-center placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                     />
                     <textarea
                     type='text'
                     name='line'
-                    placeholder='Line'
+                    placeholder='Enter Feedback'
                     className='text-black font-bold text-center rounded-2xl max-h-36  resize-y  my-2 '
                     required
                     />
-                    <div className="relative">
-                        <button className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
-                    </div>
-                </div>
+                    
+                        <button type='submit' className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
+                    
+                </form>
             </div>
         </div>
     </div>

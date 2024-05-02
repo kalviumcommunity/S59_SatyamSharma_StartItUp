@@ -22,6 +22,7 @@ import Contact from './Pages/Contact';
 import RequestBox from './Pages/RequestBox';
 import AddOn from './Pages/AddOn';
 import FounderDetails from './Pages/FounderDetails';
+import Register from './Pages/Register';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path='publishUser/addOn' element={<AddOn />} />
         <Route path='publishUser/requestBox' element={<RequestBox />} />
         <Route path='publishUser/founderDetails' element={<FounderDetails />} />
+        <Route path='register' element={<Register />} />
 
       </Routes>
       <Footer/>

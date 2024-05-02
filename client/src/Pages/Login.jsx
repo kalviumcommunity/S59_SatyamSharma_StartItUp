@@ -1,9 +1,30 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 
-const LoginForm = () => {
+
+const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
+  const [counter, setCounter] = useState(3);
+  const API_URI = `${import.meta.env.VITE_URL}/auth/login`;
+
+  useEffect(() => {
+    if (submitted) {
+      const timer = setInterval(() => {
+        setCounter((prev) => prev - 1); 
+      }, 1000);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 3000);  
+      return () => clearInterval(timer);
+    }
+  }, [submitted, navigate]);
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,13 +34,50 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit=(e)=>{
-    e.preventDefault(); 
-    console.log("Sign In Done")
-  }
- 
+  const handleSubmit = async (e) => {
+    console.log(JSON.stringify({
+      "emailId" : email,
+       "password": password,
+     }))
+    e.preventDefault();
+    try {
+      const response = await fetch(API_URI, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+         "emailId" : email,
+          "password": password,
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to authenticate. Please check your credentials.');
+      }
+      
+      const { token,userName,userId,Id } = await response.json();
+      console.log('Authentication successful:', token,userName,  userId ,Id);
+      toast.success('Authentication successful');
+      setSubmitted(true);
+
+      if (token&&userId) {
+        document.cookie = `token=${token}; max-age=3600; path=/`;
+        document.cookie = `userId=${userId}; max-age=3600;path=/`;
+        document.cookie = `userName=${userName}; max-age=3600;path=/`
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      toast.error(error.message || 'An unexpected error occurred during authentication');
+    }
+  };
+
   return (
-<div className='bg-black h-full'>
+
+    <div className='bg-black h-full'>
+<ToastContainer/>
+
+
 <div>
 <div className='text-5xl text-white w-full flex justify-center items-center'>
   Login
@@ -42,7 +100,7 @@ const LoginForm = () => {
             <div className='p-1 bg-blue-700  lg:py-8 lg:px-5 fixed top-64 rounded-2xl px-2 py-3 z-20'>
             <h1 className="text-4xl lg:text-5xl mb-5 font-semibold  text-center text-white">
               Login Successful <br />
-              <span className="text-center  text-sm">You will be redirected to Home page in <span className='text-xl text-blue-200'>3</span> </span>  
+              <span className="text-center  text-sm">You will be redirected to Home page in <span className='text-xl text-blue-200'>{counter}</span> </span>  
             </h1>
             </div>
           ) : null}
@@ -90,11 +148,13 @@ const LoginForm = () => {
             <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
               OR
             </p>
-          </div> 
+          </div>
+          <Link to="/register">
             <button className="mb-3 flex w-full items-center justify-center hover:scale-105 hover:bg-blue-700 rounded bg-info bg-blue-500 px-7 pb-2.5 pt-3 text-center  text-sm font-medium uppercase leading-normal text-white shadow-info-3 transition duration-150 ease-in-out hover:bg-info-accent-300 hover:shadow-info-2 focus:bg-info-accent-300 focus:shadow-info-2 focus:outline-none focus:ring-0 active:bg-info-600 active:shadow-info-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
               Create Account
             </button>
-            <div className='w-full justify-center flex items-center'>
+          </Link>
+          <div className='w-full justify-center flex items-center'>
             <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 hover:bg-slate-400 hover:scale-105 bg-slate-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div class="bg-slate-200  p-2 rounded-full">
                         <svg class="w-4" viewBox="0 0 533.5 544.3">
@@ -123,7 +183,7 @@ const LoginForm = () => {
   </div>
 
 </section>
-</div>      
+</div>       
     </div>
                 
   );

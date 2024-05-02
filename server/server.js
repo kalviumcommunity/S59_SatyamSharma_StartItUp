@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors')
-const routes = require('./router');
+const routes = require('./Routes/router');
 const { connectDB, disconnectDB } = require('./db');
-const Authroutes= require('./Authroutes')
+const Authroutes= require('./Routes/Authroutes')
 const app = express();
 
 app.use(cors())

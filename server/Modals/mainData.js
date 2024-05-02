@@ -1,53 +1,89 @@
 const mongoose = require('mongoose');
 
 const mainData= new mongoose.Schema({
-    company:{
+    uniqueId:{
         type : String,
         required : true
     },
-    drive:{
+    driveLink:{
         type: String,
         required : true
     },
-    description:{
+    thumbnail:{
         type :String,
         required : true
     },
-    founder:{
+    startUpName:{
         type :String,
         required :true
     },
-    userId:{
+    description:{
         type :String,
         required :true
     },
-    investment:{
-        type :Boolean
+    likeCount:{
+        type :Number
     },
-    investmentAmount:{
+    commentSection:{
+        type :[String]
+    },
+    strikeButton:{
         type :String
     },
-    PaymentMode:{
-        type :String
+    founderName:{
+        type : String
     },
-    token:{
-        type :Boolean
+    aboutYou:{
+        type : String
     },
-    tokenValue:{
-        type: Number
+    image:{
+        type : String
     },
-    contact:{
-        type :Boolean
+    socialMedia:{
+        type : String
     },
-    contactDetails:{
-        type :String
+    currentEvaluation:{
+        type : String
     },
-    requestBox:{
-        type: Boolean
+    yourAsk:{
+        type : String
     },
-    reportIssue:{
+    equityOffered:{
+        type : String
+    },
+    revenueStatus:{
+        type : String
+    },
+    tokenization:{
+        type : Boolean
+    },
+    tokenAmount:{
+        type : String
+    },
+    tokenLeft:{
+        type : String
+    },
+    address:{
+        type : String
+    },
+    contactNumber:{
+        type : Number
+    },
+    messageForInvestor:{
+        type : String
+    },
+    previousInvestor:{
+        type : String
+    },
+    jobRequest:{
         type: String
-    }
+    },
+    otherRequest:{
+        type: String
+    },
+    yourProducts:{
+        type: String
+    },
 })
 
 const mainDataThing = mongoose.model('mainDatas',mainData);

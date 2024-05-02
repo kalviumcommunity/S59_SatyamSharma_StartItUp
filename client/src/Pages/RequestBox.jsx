@@ -22,16 +22,23 @@ function RequestBox() {
     <div className="flex flex-col gap-6 mb-1">
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Requirements
+        Job Requirement
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Jobs, Distributions or Raw Material Needs ,etc"
+        <input placeholder="Job Details, Eligibility Markers, Salary"
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
-
+      </div>
+      <h6
+        class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
+        Other Requirements
+      </h6>
+      <div class="relative h-11 w-full min-w-[200px]">
+        <input placeholder="Distributors ,Raw Materials"
+          class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Your Site Or Products
+        Your Products
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
         <input placeholder="Site URL or Product Links"

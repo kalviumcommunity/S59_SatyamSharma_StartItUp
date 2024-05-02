@@ -21,6 +21,7 @@ import Tokenization from './Pages/Tokenization';
 import Contact from './Pages/Contact';
 import RequestBox from './Pages/RequestBox';
 import AddOn from './Pages/AddOn';
+import FounderDetails from './Pages/FounderDetails';
 
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
         <Route path='publishUser/contact' element={<Contact />} />
         <Route path='publishUser/addOn' element={<AddOn />} />
         <Route path='publishUser/requestBox' element={<RequestBox />} />
+        <Route path='publishUser/founderDetails' element={<FounderDetails />} />
+
       </Routes>
       <Footer/>
     </div>

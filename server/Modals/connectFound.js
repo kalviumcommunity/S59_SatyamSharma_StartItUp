@@ -17,11 +17,11 @@ const founderSchema= new mongoose.Schema({
         type : String,
         required : true
     },
-    Siteimage:{
+    siteimage:{
         type : String,
         required : true
     },
-    ConnectNo:{
+    connectNo:{
         type : Number,
         required : true
     },

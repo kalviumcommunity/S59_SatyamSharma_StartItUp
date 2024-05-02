@@ -1,10 +1,12 @@
 const Joi = require('joi')
 
 const schemaVerify = Joi.object({
-    MobileNo: Joi.number(),
-    Self : Joi.string(),
-    socialMedia: Joi.string(),
-    email: Joi.string()
+    uniqueId : Joi.string().required(),
+    mobileNo: Joi.number().required(),
+    self: Joi.string().required(),
+    socialMedia: Joi.string().required(),
+    email: Joi.string().required(),
+    idProf: Joi.string().required()
 })
 
 const validatePostVerify=(data)=>{

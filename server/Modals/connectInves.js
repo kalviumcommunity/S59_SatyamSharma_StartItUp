@@ -21,7 +21,7 @@ const investSchema= new mongoose.Schema({
         type : String,
         required : true
     },
-    ConnectNo:{
+    connectNo:{
         type : Number,
         required : true
     },

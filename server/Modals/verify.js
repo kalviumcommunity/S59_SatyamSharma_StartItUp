@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 
 
 const verify= new mongoose.Schema({
-    MobileNo:{
+    uniqueId:{
+        type :String,
+        required: true
+    },
+    mobileNo:{
         type : Number,
         required : true
     },
-    Self:{
+    self:{
         type: String,
         required : true
     },
@@ -15,6 +19,10 @@ const verify= new mongoose.Schema({
         required : true
     },
     email:{
+        type :String,
+        required :true
+    },
+    idProf:{
         type :String,
         required :true
     }

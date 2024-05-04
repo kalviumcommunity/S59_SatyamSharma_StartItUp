@@ -3,7 +3,69 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const User = require('../Modals/user');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const passport = require('passport');
 require('dotenv').config();
+
+const GOOGLE_CLIENT_ID = process.env.CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.CLIENT_SECRET;
+const URL = process.env.BACKEND_URL;
+const CLIENT_URL=process.env.CLIENT_URL;
+
+passport.use(new GoogleStrategy({
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  callbackURL: `${URL}/auth/google/callbacks`,  
+  scope: ['profile', 'email']
+},
+  async (accessToken, refreshToken, profile, cb) => {
+    try {
+      const userData = profile._json;
+      const email = userData.email;
+      const username = userData.name;
+      const picture = userData.picture;
+      console.log("Google'S user data:", userData);
+       let user = await User.findOne({ emailId: email });
+      if (!user) {
+        user = new User({ userName: username, emailId: email, picture: picture });
+        await user.save();
+      }
+      return cb(null, user);
+    } catch (error) {
+      return cb(error, null);
+    }
+  }
+));
+
+passport.serializeUser(function (User, cb) {
+  cb(null, User.id);
+})
+
+passport.deserializeUser(async function (id, cb) {
+  try {
+    const user = await User.findById(id);
+    cb(null, user);
+  } catch (err) {
+    cb(err, null);
+  }
+});
+
+
+router.get('/google', passport.authenticate("google", { scope: ['profile', 'email'] }))
+
+router.get('/google/callbacks', passport.authenticate('google', { failureRedirect: `${CLIENT_URL}/Login` }), async (req, res) => {
+  try {
+    const user = req.user;
+
+    const token = jwt.sign({userId: user._id, email: user.emailId,pic: user.picture,nam: user.userName }, process.env.SECRET_KEY, { expiresIn: '24h' });
+
+    res.cookie('token', token, { maxAge: 3600 * 1000, httpOnly: false, path: '/' });
+    res.redirect("http://localhost:5173/");
+  } catch (error) {
+    console.error('Error during Google OAuth callback:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 const transporter = nodemailer.createTransport({
   host: process.env.HOST,
@@ -42,7 +104,6 @@ router.post('/register', async (req, res) => {
         return res.status(500).json({ error: 'Error sending verification email' });
       }
 
-      // Save the user profile only after sending the OTP successfully
       const newUser = new User({ userName, emailId, userId });
       newUser.setPassword(password);
       newUser.otp = otp;
@@ -71,7 +132,6 @@ router.post('/verify-otp', async (req, res) => {
       return res.status(400).json({ error: 'Invalid OTP' });
     }
 
-
     user.emailVerified = true;
     await user.save();
 
@@ -91,7 +151,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '24h' });
+    const token = jwt.sign({ id: user._id,userName:user.userName,userId: user.userId, pic : user.picture,email:user.emailId}, process.env.SECRET_KEY, { expiresIn: '24h' });
 
     const currentTime = new Date().toLocaleString();
 
@@ -113,8 +173,8 @@ router.post('/login', async (req, res) => {
         console.log('Login notification email sent:', info.response);
       }
     });
-
-    res.status(200).json({ token, userName: user.userName, Id: user._id, userId: user.userId });
+    
+    res.status(200).json({token})
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal server error' });

@@ -4,11 +4,13 @@ import ham from '../assets/ham.png'
 import cross from '../assets/cro.png'
 import { Link } from 'react-router-dom';
 
-function Home() {
+function Home(props) {
   const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <div className=' bg-black w-full h-full lg:h-screen text-white flex justify-between flex-col lg:flex-row pt-20 lg:pt-0 items-center'>
+      {console.log("this is token Details ",props.token)}
       <div className='lg:hidden top-10 sm:top-20 left-2 z-30 absolute'>
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?null:<img src={ham} alt="ham" className="sm:rounded-xl w-8 rounded-md"/>}</button>
       </div>

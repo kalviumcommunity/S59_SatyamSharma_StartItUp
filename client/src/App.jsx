@@ -23,14 +23,33 @@ import RequestBox from './Pages/RequestBox';
 import AddOn from './Pages/AddOn';
 import FounderDetails from './Pages/FounderDetails';
 import Register from './Pages/Register';
+import { jwtDecode } from "jwt-decode";
 
 
 function App() {
+
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const cookies = document.cookie.split(";");
+    const tokenCode = cookies.find((cookie) =>
+      cookie.trim().startsWith("token")
+    );
+    if (tokenCode) {
+      const tok = tokenCode.split("=")[1];
+      setToken(tok);
+    }
+  }, []);
+let decodedToken=""
+  if(token){
+    decodedToken = jwtDecode(token,import.meta.env.SECRET_KEY);
+  }
+  
   return (
     <div className='bg-black'>
       <Navebar/>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home token={decodedToken} />} />
         <Route path='verifiedUser' element={<VerifiedUser />} />
         <Route path='publishUser' element={<Publish />} />
         <Route path='streaming' element={<Streaming />} />
@@ -52,7 +71,6 @@ function App() {
         <Route path='publishUser/requestBox' element={<RequestBox />} />
         <Route path='publishUser/founderDetails' element={<FounderDetails />} />
         <Route path='register' element={<Register />} />
-
       </Routes>
       <Footer/>
     </div>

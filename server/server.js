@@ -4,6 +4,20 @@ const routes = require('./Routes/router');
 const { connectDB, disconnectDB } = require('./db');
 const Authroutes= require('./Routes/Authroutes')
 const app = express();
+const passport= require("passport");
+const session = require("express-session")
+require('dotenv').config();
+
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }))
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 app.use(cors())
 app.use(express.json());
@@ -11,12 +25,11 @@ app.use(express.json());
 app.use('/api', routes);
 app.use('/auth',Authroutes);
 
-const port = 1300;
 
 connectDB() 
     .then(() => {
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
+        app.listen(process.env.PORT, () => {
+            console.log(`Server is running on port ${process.env.PORT}`);
         });
     })
     .catch(err => {

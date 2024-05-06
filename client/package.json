@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dark-mode-toggle-2": "^2.0.9",
     "react-dom": "^18.2.0",

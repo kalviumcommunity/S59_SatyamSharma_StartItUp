@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 
-
 const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,11 +33,8 @@ const LoginForm = (props) => {
     setPassword(e.target.value);
   };
 
+
   const handleSubmit = async (e) => {
-    console.log(JSON.stringify({
-      "emailId" : email,
-       "password": password,
-     }))
     e.preventDefault();
     try {
       const response = await fetch(API_URI, {
@@ -47,30 +43,35 @@ const LoginForm = (props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-         "emailId" : email,
+          "emailId" : email,
           "password": password,
         }),
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to authenticate. Please check your credentials.');
+        if (email && password) {
+          throw new Error(errorData.error || 'Failed to authenticate. Please check your credentials.');
+        }
       }
-      
-      const { token,userName,userId,Id } = await response.json();
-      console.log('Authentication successful:', token,userName,  userId ,Id);
+  
+      const { token } = await response.json();
       toast.success('Authentication successful');
       setSubmitted(true);
-
-      if (token&&userId) {
+  
+      if (token) {
         document.cookie = `token=${token}; max-age=3600; path=/`;
-        document.cookie = `userId=${userId}; max-age=3600;path=/`;
-        document.cookie = `userName=${userName}; max-age=3600;path=/`
       }
     } catch (error) {
       console.error('Authentication error:', error);
-      toast.error(error.message || 'An unexpected error occurred during authentication');
+      if (email && password) {
+        toast.error(error.message || 'An unexpected error occurred during authentication');
+      }
     }
   };
+
+  const googleLogin=()=>{
+    window.open(`${import.meta.env.VITE_URL}/auth/google`,"_self")
+  }
 
   return (
 
@@ -79,7 +80,7 @@ const LoginForm = (props) => {
 
 
 <div>
-<div className='text-5xl text-white w-full flex justify-center items-center'>
+<div className='text-5xl my-10 md:my-20 lg:my-0 text-white w-full flex justify-center items-center'>
   Login
 </div>
 
@@ -154,8 +155,9 @@ const LoginForm = (props) => {
               Create Account
             </button>
           </Link>
-          <div className='w-full justify-center flex items-center'>
-            <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 hover:bg-slate-400 hover:scale-105 bg-slate-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+          <div className='w-full justify-center mb-16 flex items-center'>
+            
+            <button onClick={googleLogin} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 hover:bg-green-600 hover:scale-105 bg-slate-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div class="bg-slate-200  p-2 rounded-full">
                         <svg class="w-4" viewBox="0 0 533.5 544.3">
                                     <path
@@ -176,6 +178,7 @@ const LoginForm = (props) => {
                                 Sign Up with Google
                           </span>
               </button>
+              
               </div>
         </form>
       </div>

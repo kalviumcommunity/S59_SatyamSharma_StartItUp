@@ -57,7 +57,27 @@ router.get('/google/callbacks', passport.authenticate('google', { failureRedirec
   try {
     const user = req.user;
 
-    const token = jwt.sign({userId: user._id, email: user.emailId,pic: user.picture,nam: user.userName }, process.env.SECRET_KEY, { expiresIn: '24h' });
+    const currentTime = new Date().toLocaleString();
+    await user.save();
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: user.emailId,
+      subject: 'Welcome To Start-it-up',
+      html: `<p>Hello ${user.userName},</p>
+             <p>You Login at <b>${currentTime}</b></p>
+             <p>Thank you for using our service!</p>`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending password email:', error);
+      } else {
+        console.log('Password email sent:', info.response);
+      }
+    });
+
+    const token = jwt.sign({id: user._id, email: user.emailId,pic: user.picture,nam: user.userName,userId:user.userId }, process.env.SECRET_KEY, { expiresIn: '24h' });
 
     res.cookie('token', token, { maxAge: 3600 * 1000, httpOnly: false, path: '/' });
     res.redirect("http://localhost:5173/");
@@ -151,7 +171,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ id: user._id,userName:user.userName,userId: user.userId, pic : user.picture,email:user.emailId}, process.env.SECRET_KEY, { expiresIn: '24h' });
+    const token = jwt.sign({id: user._id,nam:user.userName,userId: user.userId, pic : user.picture,email:user.emailId}, process.env.SECRET_KEY, { expiresIn: '24h' });
 
     const currentTime = new Date().toLocaleString();
 
@@ -177,6 +197,31 @@ router.post('/login', async (req, res) => {
     res.status(200).json({token})
   } catch (error) {
     console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.patch('/register/:id', async (req, res) => {
+  const id = req.params.id;
+  const { userName, emailId, password,userId } = req.body;
+
+  try {
+    const existingUser = await User.findById(id);
+
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (userName) existingUser.userName = userName;
+    if (emailId) existingUser.emailId = emailId;
+    if (userId) existingUser.userId = userId;
+    if (password) existingUser.setPassword(password);
+
+    const updatedUser = await existingUser.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user profile:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

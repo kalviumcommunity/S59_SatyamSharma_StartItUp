@@ -431,6 +431,58 @@ router.delete('/users/:id', async (req, res, next) => {
     }
 });
 
+router.get('/users/:id', async (req, res, next) => {
+    try {
+        const user = await users.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+router.patch('/contents/:id', validateInput(schemaChat), async (req, res, next) => {
+    updateDocument(public, req.params.id, req.body, res, next);
+});
+
+router.patch('/verifys/:id', validateInput(schemaVerify), async (req, res, next) => {
+    updateDocument(verify, req.params.id, req.body, res, next);
+});
+
+router.patch('/mainDatas/:id', validateInput(schemaMain), async (req, res, next) => {
+    updateDocument(mainData, req.params.id, req.body, res, next);
+});
+
+router.patch('/profiles/:id', validateInput(profileSchema), async (req, res, next) => {
+    updateDocument(profile, req.params.id, req.body, res, next);
+});
+
+router.patch('/trendings/:id', validateInput(trendingSchema), async (req, res, next) => {
+    updateDocument(trending, req.params.id, req.body, res, next);
+});
+
+router.patch('/feedbacks/:id', validateInput(feedbackSchema), async (req, res, next) => {
+    updateDocument(feedback, req.params.id, req.body, res, next);
+});
+
+router.patch('/connectInves/:id', validateInput(investSchema), async (req, res, next) => {
+    updateDocument(connectInv, req.params.id, req.body, res, next);
+});
+
+router.patch('/connectFoun/:id', validateInput(founderSchema), async (req, res, next) => {
+    updateDocument(connectFoun, req.params.id, req.body, res, next);
+});
+
+router.patch('/collections/:id', validateInput(collectionSchema), async (req, res, next) => {
+    updateDocument(collections, req.params.id, req.body, res, next);
+});
+
+router.patch('/users/:id', validateInput(userSchema), async (req, res, next) => {
+    updateDocument(users, req.params.id, req.body, res, next);
+});
 
 
 

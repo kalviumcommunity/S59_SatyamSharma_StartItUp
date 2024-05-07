@@ -23,33 +23,20 @@ import RequestBox from './Pages/RequestBox';
 import AddOn from './Pages/AddOn';
 import FounderDetails from './Pages/FounderDetails';
 import Register from './Pages/Register';
-import { jwtDecode } from "jwt-decode";
-
-
+import { useAppContext } from './Appcontext';
+import LogoutPage from './Pages/Logout';
 function App() {
+  const { token, id, nam, email, pic, userId, password } = useAppContext();
 
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    const cookies = document.cookie.split(";");
-    const tokenCode = cookies.find((cookie) =>
-      cookie.trim().startsWith("token")
-    );
-    if (tokenCode) {
-      const tok = tokenCode.split("=")[1];
-      setToken(tok);
-    }
-  }, []);
-let decodedToken=""
-  if(token){
-    decodedToken = jwtDecode(token,import.meta.env.SECRET_KEY);
-  }
+ 
+  console.log(id,nam,email,userId,password,pic)
   
   return (
     <div className='bg-black'>
       <Navebar/>
       <Routes>
-        <Route path='/' element={<Home token={decodedToken} />} />
+       
+        <Route path='/' element={<Home />} />
         <Route path='verifiedUser' element={<VerifiedUser />} />
         <Route path='publishUser' element={<Publish />} />
         <Route path='streaming' element={<Streaming />} />
@@ -58,6 +45,7 @@ let decodedToken=""
         <Route path='Connect' element={<ProfileCard />} />
         <Route path='Connect/investorsPro' element={<InvestorPro />} />
         <Route path='Login' element={<LoginForm />} />
+        <Route path='Logout' element={<LogoutPage />} />
         <Route path='Connect/founderPro' element={<FounderPro />} />
         <Route path='collection' element={<Collection />} />
         <Route path='public' element={<Public />} />

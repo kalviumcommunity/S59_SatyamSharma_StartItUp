@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 
-const LoginForm = (props) => {
+
+const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -158,8 +159,8 @@ const LoginForm = (props) => {
           <div className='w-full justify-center mb-16 flex items-center'>
             
             <button onClick={googleLogin} className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 hover:bg-green-600 hover:scale-105 bg-slate-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
-                  <div class="bg-slate-200  p-2 rounded-full">
-                        <svg class="w-4" viewBox="0 0 533.5 544.3">
+                  <div className="bg-slate-200  p-2 rounded-full">
+                        <svg className="w-4" viewBox="0 0 533.5 544.3">
                                     <path
                                         d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
                                         fill="#4285f4" />
@@ -174,7 +175,7 @@ const LoginForm = (props) => {
                                         fill="#ea4335" />
                                 </svg>
                             </div>
-                            <span class="ml-4">
+                            <span className="ml-4">
                                 Sign Up with Google
                           </span>
               </button>

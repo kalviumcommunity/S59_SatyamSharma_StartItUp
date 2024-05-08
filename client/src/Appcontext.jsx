@@ -12,6 +12,14 @@ export const AppProvider = ({ children }) => {
     const[userId,setUserId]=useState(null)
     const[password,setPassword]=useState(null)
     const[fet,setFet]=useState(false)
+
+    const[feedback,setFeedback]=useState([]);
+    const[feed,setFeed]=useState(false)
+
+    const[publics,setPublic]=useState([]);
+    const[pub,setPub]=useState(false)
+
+
   
     useEffect(() => {
       const cookies = document.cookie.split(";");
@@ -61,6 +69,53 @@ export const AppProvider = ({ children }) => {
           fetchUserData();
       }
   }, [token,fet]);
+
+
+  useEffect(() => {
+    const fetchFeedbackData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/feedbacks`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const feedbackData = await response.json();
+          setFeedback(feedbackData); 
+        } else {
+          toast.error("Failed to fetch feedback data");
+        }
+      } catch (err) {
+        toast.error("Failed to fetch feedback data");
+      }
+    };
+    fetchFeedbackData(); 
+  }, [feed]);
+
+
+  useEffect(() => {
+    const fetchPublicData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/contents`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const feedbackData = await response.json();
+          setPublic(feedbackData); 
+        } else {
+          toast.error("Failed to fetch feedback data");
+        }
+      } catch (err) {
+        toast.error("Failed to fetch feedback data");
+      }
+    };
+    fetchPublicData(); 
+  }, [pub]);
+  
   
 
     const logout = () => {
@@ -87,7 +142,13 @@ export const AppProvider = ({ children }) => {
         setPassword,
         logout,
         fet,
-        setFet
+        setFet,
+        feed,
+        setFeed,
+        feedback,
+        pub,
+        setPub,
+        publics
       }}
     >
       {children}

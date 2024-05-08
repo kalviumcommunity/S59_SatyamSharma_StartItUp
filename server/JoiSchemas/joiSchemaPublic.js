@@ -1,12 +1,14 @@
 const Joi = require('joi')
 
 const schemaChat = Joi.object({ 
-    uniqueId: Joi.string().required(),
-    userName: Joi.string().required(),
-    heading: Joi.string().required(),
-    upvote: Joi.number().required(),
-    content: Joi.string().required(),
-    strike: Joi.number().required()
+    uniqueId: Joi.string(),
+    userName: Joi.string(),
+    heading: Joi.string(),
+    upvote: Joi.number(),
+    content: Joi.string(),
+    strike: Joi.number(),
+    pic: Joi.string(),
+    date: Joi.string(),
 })
 
 const validatePostChat=(data)=>{

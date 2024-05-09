@@ -9,6 +9,8 @@ const schemaChat = Joi.object({
     strike: Joi.number(),
     pic: Joi.string(),
     date: Joi.string(),
+    usersLiked:Joi.array().items(Joi.string()),
+    usersStriked:Joi.array().items(Joi.string())
 })
 
 const validatePostChat=(data)=>{

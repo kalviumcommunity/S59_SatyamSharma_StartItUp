@@ -24,6 +24,12 @@ const contentSchema= new mongoose.Schema({
     },
     date:{
         type :String,
+    },
+    usersLiked:{
+        type:[String]
+    },
+    usersStriked:{
+        type:[String]
     }
 })
 

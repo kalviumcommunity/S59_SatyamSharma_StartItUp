@@ -2,32 +2,34 @@ const mongoose = require('mongoose');
 
 const feedbackSchema= new mongoose.Schema({
     uniqueId:{
-        type : String,
-        required : true
-    },
+        type : String
+        },
     userName:{
-        type : String,
-        required : true
+        type : String
     },
     heading:{
-        type : String,
-        required : true
+        type : String
     },
     content:{
-        type : String,
-        required : true
+        type : String
     },
     type:{
-        type : String,
-        required : true
+        type : String
     },
     date:{
-        type : String,
-        required : true
+        type : String
     },
     status:{
-        type : String,
-        required : true
+        type : String
+    },
+    pic:{
+        type : String
+    },
+    replyHead:{
+        type: String
+    },
+    replyContext:{
+        type: String
     }
 })
 

@@ -91,7 +91,6 @@ function Admin() {
                                 placeholder={e.replyHead}
                                 name="heading"
                                 type='text'
-                                value={heading} 
                                 className="peer rounded-2xl text-center placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
                               ></input>
                               {console.log(e.replyHead, e.replyContext)}
@@ -99,7 +98,6 @@ function Admin() {
                                 onChange={handleContext}
                                 name='content'
                                 placeholder={e.replyContext}
-                                value={context}
                                 className='text-black font-bold text-center rounded-2xl max-h-36 resize-y my-2'
                                 required
                               ></textarea>

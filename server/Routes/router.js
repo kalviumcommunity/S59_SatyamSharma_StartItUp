@@ -444,7 +444,7 @@ router.get('/users/:id', async (req, res, next) => {
 });
 
 
-router.patch('/contents/:id', validateInput(schemaChat), async (req, res, next) => {
+router.patch('/contents/:id',authToken, validateInput(schemaChat), async (req, res, next) => {
     updateDocument(public, req.params.id, req.body, res, next);
 });
 

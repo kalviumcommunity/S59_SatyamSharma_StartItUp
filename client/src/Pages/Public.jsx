@@ -5,112 +5,157 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Img from '../assets/user.png';
 
-function Public() {
-    const [open, setOpen] = useState(false);
-    const { nam, id, token, pic, pub, setPub, publics } = useAppContext();
-    const [heading, setHeading] = useState("");
-    const [context, setContext] = useState("");
-    const [upvotedPosts, setUpvotedPosts] = useState([]);
-    const [strikedPosts, setStrikedPosts] = useState([]);
-
-    const handleOpen = () => {
-        setOpen(!open);
-    }
-
-    const handleHead = (e) => {
-        setHeading(e.target.value);
-    }
-
-    const handleContext = (e) => {
-        setContext(e.target.value);
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const currentDate = new Date().toISOString().slice(0, 10);
-            const response = await fetch(`${import.meta.env.VITE_URL}/api/contents`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    uniqueId: id,
-                    userName: nam,
-                    heading: heading,
-                    content: context,
-                    date: currentDate,
-                    pic: pic,
-                    strike: 0,
-                    upvote: 0
-                }),
-            });
-            if (response.ok) {
-                toast.success(`${nam} Sent`);
-            } else {
-                toast.info('Login to Send Feedback');
-            }
-        } catch (error) {
-            toast.error("Error", error);
+    function Public() {
+        const [open, setOpen] = useState(false);
+        const { nam, id, token, pic, pub, setPub, publics } = useAppContext(); 
+        const [heading, setHeading] = useState("");
+        const [context, setContext] = useState("");
+        const [upvotedPosts, setUpvotedPosts] = useState([]);
+        const [strikedPosts, setStrikedPosts] = useState([]);
+    
+        const handleOpen = () => {
+            setOpen(!open);
         }
-        handleOpen();
-        setPub(!pub);
-    };
-
-    const handleControl = async (postId, type, count) => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_URL}/api/contents/${postId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    [type]: count
-                }),
-            });
-            if (response.ok) {
-                if (type === 'upvote') {
-                    toast.success('Upvoted successfully');
+    
+        const handleHead = (e) => {
+            setHeading(e.target.value);
+        }
+    
+        const handleContext = (e) => {
+            setContext(e.target.value);
+        }
+    
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            try {
+                const currentDate = new Date().toISOString().slice(0, 10);
+                const response = await fetch(`${import.meta.env.VITE_URL}/api/contents`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        uniqueId: id,
+                        userName: nam,
+                        heading: heading,
+                        content: context,
+                        date: currentDate,
+                        pic: pic,
+                        strike: 0,
+                        upvote: 0,
+                        usersLiked: [], 
+                        usersStriked: [] 
+                    }),
+                });
+                if (response.ok) {
+                    toast.success(`${nam}'s Post Added`);
                 } else {
-                    toast.success('Strike added successfully');
+                    toast.info('Login to Send Feedback');
+                }
+            } catch (error) {
+                toast.error("Error", error);
+            }
+            handleOpen();
+            setPub(!pub);
+        };
+    
+        const handleControl = async (postId, type, count, updatedUsers) => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_URL}/api/contents/${postId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        [type]: count,
+                        usersLiked: type === 'upvote' ? updatedUsers : publics.find(post => post._id === postId).usersLiked,
+                        usersStriked: type === 'strike' ? updatedUsers : publics.find(post => post._id === postId).usersStriked
+                    }),
+                });
+                if (response.ok) {
+                } else {
+                    toast.error('Failed to update');
+                }
+            } catch (error) {
+                toast.error("Error", error);
+            }
+            setPub(!pub);
+        };
+
+        const handleDelete = async (deleteId) => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_URL}/api/contents/${deleteId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                if (response.ok) {
+                    toast.success("Deleted Successfully");
+                } else {
+                    toast.error('Failed to update');
+                }
+            } catch (error) {
+                toast.error("Error", error);
+            }
+            setPub(!pub);
+        };
+
+
+
+
+    
+        const handleUpvote = async (postId, presentVote) => {
+            const post = publics.find((e) => e._id === postId);
+            if (post) {
+                const usersLiked = post.usersLiked || [];
+                if (usersLiked.includes(id)) {
+                    const updatedUsersLiked = usersLiked.filter((userId) => userId !== id);
+                    setUpvotedPosts((prevUpvotedPosts) =>
+                        prevUpvotedPosts.filter((prevPostId) => prevPostId !== postId)
+                    );
+                    handleControl(postId, 'upvote', presentVote - 1, updatedUsersLiked);
+                } else {
+                    setUpvotedPosts((prevUpvotedPosts) => [...prevUpvotedPosts, postId]);
+                    handleControl(postId, 'upvote', presentVote + 1, [...usersLiked, id]);
                 }
             } else {
-                toast.error('Failed to update');
+                console.error(`Post with id ${postId} not found`);
             }
-        } catch (error) {
-            toast.error("Error", error);
-        }
-        setPub(!pub);
-    };
-
-    const handleUpvote = async (postId, presentVote) => {
-        const updatedUpvotedPosts = isUpvotedByUser(postId)
-            ? upvotedPosts.filter((id) => id !== postId)
-            : [...upvotedPosts, postId];
-        setUpvotedPosts(updatedUpvotedPosts);
-        const newVoteCount = isUpvotedByUser(postId) ? presentVote - 1 : presentVote + 1;
-        handleControl(postId, 'upvote', newVoteCount);
-    };
-
-    const handleStrike = async (postId, presentStrike) => {
-        const updatedStrikedPosts = isStrikedByUser(postId)
-            ? strikedPosts.filter((id) => id !== postId)
-            : [...strikedPosts, postId];
-        setStrikedPosts(updatedStrikedPosts);
-        const newStrikeCount = isStrikedByUser(postId) ? presentStrike - 1 : presentStrike + 1;
-        handleControl(postId, 'strike', newStrikeCount);
-    };
-
-    const isUpvotedByUser = (postId) => {
-        return upvotedPosts.includes(postId);
-    };
-
-    const isStrikedByUser = (postId) => {
-        return strikedPosts.includes(postId);
-    };
-
+        };
+        
+        const handleStrike = async (postId, presentStrike) => {
+            const post = publics.find((e) => e._id === postId);
+            if (post) {
+                const usersStriked = post.usersStriked || [];
+                if (usersStriked.includes(id)) {
+                    const updatedUsersStriked = usersStriked.filter((userId) => userId !== id);
+                    setStrikedPosts((prevStrikedPosts) =>
+                        prevStrikedPosts.filter((prevPostId) => prevPostId !== postId)
+                    );
+                    handleControl(postId, 'strike', presentStrike - 1, updatedUsersStriked);
+                } else {
+                    setStrikedPosts((prevStrikedPosts) => [...prevStrikedPosts, postId]);
+                    handleControl(postId, 'strike', presentStrike + 1, [...usersStriked, id]);
+                }
+            } else {
+                console.error(`Post with id ${postId} not found`);
+            }
+        };
+    
+        const isUpvotedByUser = (postId) => {
+            const post = publics.find((e) => e._id === postId);
+            return post && post.usersLiked && post.usersLiked.includes(id);
+        };
+    
+        const isStrikedByUser = (postId) => {
+            const post = publics.find((e) => e._id === postId);
+            return post && post.usersStriked && post.usersStriked.includes(id);
+        };
+        
     return (
         <div>
             <div className="lg:mt-24 mt-8 flex justify-center items-center flex-col">
@@ -127,8 +172,8 @@ function Public() {
                 </div>
                 {open ?
                     <div className='fixed z-40 lg:top-1/4 top-1/4 flex w-full justify-center items-start h-full'>
-                        <div>
-                            <div className="relative flex flex-col bg-gray-700 p-3 text-white bg-transparent shadow-none rounded-xl bg-clip-border">
+                        <div> 
+                            <div className="relative flex flex-col p-3 text-white bg-transparent shadow-none rounded-xl animated-background  bg-gradient-to-r from-slate-600 via-slate-700 to-slate-600 ">
                                 <button onClick={handleOpen} className='bg-red-600 absolute top-2 right-3 px-2 text-center rounded-xl text-white'>X</button>
                                 <h4 className="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
                                     Public Post
@@ -190,17 +235,31 @@ function Public() {
                 <div className='m-10'>
                     {publics.map((e) => {
                         return (
-                            <div key={e._id} id={e.userId} className="container max-w-4xl text-white m-10 px-5 lg:px-10 hover:scale-105 transition-all duration-300 py-6 mx-auto rounded-xl shadow-inner bg-gray-800">
+                            <div key={e._id} id={e.uniqueId} className="container max-w-4xl text-white m-10 px-5 lg:px-10 hover:scale-105 transition-all duration-300 py-6 mx-auto rounded-xl shadow-inner bg-gray-800">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-gray-100">{e.date}</span>
-                                    <button onClick={() => handleUpvote(e._id, e.upvote)} className={`px-2 py-1 font-bold rounded ${isUpvotedByUser(e._id) ? 'bg-green-600' : 'bg-violet-600'} hover:bg-violet-700 dark:text-gray-50`}>Up Votes {e.upvote}</button>
+                                    <button
+                                    onClick={() => handleUpvote(e._id, e.upvote)}
+                                    className={`px-2 py-1 font-bold rounded ${isUpvotedByUser(e._id) ? 'bg-green-600' : 'bg-violet-600'} hover:bg-violet-700 dark:text-gray-50`}
+                                >
+                                    Up Votes {e.upvote}
+                                </button>
                                 </div>
                                 <div className="mt-3 lg:max-h-36 max-h-72 overflow-y-auto bg-gray-900 p-4 rounded-2xl shadow-2xl">
                                     <h1 className="text-2xl font-bold">{e.heading}</h1>
                                     <p className="mt-2">{e.content}</p>
                                 </div>
                                 <div className="flex items-center justify-between mt-4">
-                                    <button onClick={() => handleStrike(e._id, e.strike)} className={`inline-flex m-2 items-center lg:px-2 p-1 lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 ${isStrikedByUser(e._id) ? 'bg-yellow-500' : ''}`}>Strikes {e.strike}</button>
+                                    <div>
+                                        {id === e.uniqueId || id === import.meta.env.VITE_ADMIN ?
+                                            <button onClick={() => handleDelete(e._id)} className='bg-red-800 text-white p-2 rounded-xl'>Delete</button> :
+                                <button
+                                    onClick={() => handleStrike(e._id, e.strike)}
+                                    className={`inline-flex m-2 items-center lg:px-2 p-1 lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 ${isStrikedByUser(e._id) ? 'bg-yellow-500' : ''}`}
+                                >
+                                    Strikes {e.strike}
+                                </button>}
+                                    </div>
                                     <div>
                                         <a rel="noopener noreferrer" href="#" className="flex items-center">
                                             <img src={e.pic ? e.pic : Img} alt="avatar" className="object-cover w-10 h-10 mx-4 rounded-full dark:bg-gray-500" />

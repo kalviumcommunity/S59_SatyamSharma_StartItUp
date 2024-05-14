@@ -27,25 +27,29 @@ function Home() {
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?<img src={cross} alt="close" className="transform transition w-8 rounded-md"/>:null}</button>
         <div className='flex h-full items-center flex-col '>
           <Link to='/feedback'>
-        <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-3 w-32 mx-6'>Feedback</button>
+        <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-2 w-32 mx-6'>Feedback</button>
         </Link>
         <Link to='/trending'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Trending</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Trending</button>
         </Link>
         <Link to='/Connect'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Connect</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Connect</button>
         </Link>
         
         <Link to='/collection'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Collections</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Collections</button>
         </Link>
 
         <Link to='/public'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Public</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Public</button>
         </Link>
         
         <Link to='/admin'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-3 w-32 mx-6'>Admin</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Admin</button>
+        </Link>
+
+        <Link to='/Chat'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Chat</button>
         </Link>
 
         {isOpen?

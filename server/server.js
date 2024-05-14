@@ -38,32 +38,25 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User Connected",socket.id);
+  console.log("User Connected", socket.id);
 
-  socket.on("message",({message,room})=>{
-     console.log(message);
-     io.to(room).emit("recived",message)
-  })
+  socket.on("message", ({ message, room }) => {
+    console.log(message);
+    if (room && io.sockets.adapter.rooms.has(room)) {
+      io.to(room).emit("received", message);
+    } else {
+      console.log(`Room '${room}' does not exist or is empty.`);
+    }
+  });
 
-  socket.on("join-room",(room)=>{
-    socket.join(room)
- })
+  socket.on("join-room", (room) => {
+    socket.join(room);
+  });
 
-
-  socket.on("disconnect",()=>{
-        console.log("User Disconnected",socket.id)
-  })
-
-
-
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
 });
-
-
-
-
-
-
-
 
 connectDB()
   .then(() => {

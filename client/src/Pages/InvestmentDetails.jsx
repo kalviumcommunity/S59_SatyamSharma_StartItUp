@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function InvestmentDetails() {
+
+  
   return (
     <div className='flex justify-center   items-center '>
         <div className='w-full fixed lg:top-28 top-10 left-2 lg:mb-20 mb-10 justify-start items-center'>

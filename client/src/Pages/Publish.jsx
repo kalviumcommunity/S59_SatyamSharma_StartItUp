@@ -1,11 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ham from '../assets/ham.png'
 import cross from '../assets/cro.png'
 import { Link } from 'react-router-dom'
+import { storage } from '../../firebase'
+import {ref,uploadBytes,getDownloadURL} from 'firebase/storage'
+import {v4} from 'uuid'
 
 
 function Publish() {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+	const [imageUpload, setImageUpload] = useState(null);
+	const [imageList,setImageList]=useState(null);
+
+
+	const uploadImg=()=>{
+		if(imageUpload==null) return;
+		const imageRef = ref(storage,`images/${imageUpload.name+v4()}`)
+		uploadBytes(imageRef,imageUpload).then((file)=>{
+			alert("Image Uploaded");
+			getDownloadURL(file.ref).then((url)=>{
+				setImageList(url);
+			});
+		})
+		.catch((err)=>{
+			console.log("Error Occured",err)
+		})
+	}
+
+
   return (
 <div className=' bg-black w-full h-full lg:h-screen text-white flex justify-between flex-col lg:flex-row pt-20 lg:pt-0 items-center'>
       <div className='lg:hidden top-10 sm:top-20 left-2 z-30 absolute'>
@@ -66,27 +88,32 @@ function Publish() {
 					<h1 className=" font-semibold font-itim text-4xl">Content Details</h1>
 				</div>
 				<div className="divide-y divide-gray-200">
-					<div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+					<form className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 						<div className="relative text-center">
-							<input autocomplete="off" id="email" name="email" type="text" className="peer rounded-xl placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" />
-							<label for="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
+							<input autocomplete="off" id="email" name="email" type="text" className="peer rounded-xl placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Company Name" />
+							<label for="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Company Name</label>
 						</div>
 						<div className="relative">
 							<input autocomplete="off" id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
-							<label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+							<label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Drive Link</label>
 						</div>
                         <div className="relative">
 							<input autocomplete="off" id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
-							<label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+							<label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Description</label>
 						</div>
-                        <div className="relative">
-							<input autocomplete="off" id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Profile Pic" />
-							<label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Profile pic</label>
-						</div>
+            
 						<div className="relative">
-							<button className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
+							<button type='submit' className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
 						</div>
-					</div>
+					</form>
+					<div className="relative">
+							<input type="file" 
+							onChange={(e)=>{
+								setImageUpload(e.target.files[0])
+								}}/>
+							<button onClick={uploadImg} className='bg-white text-black'>Upload Image</button>
+						</div>
+						{imageList?<img src={imageList} className='h-96 w-72'></img>:null}
 				</div>
 			</div>
 		</div>

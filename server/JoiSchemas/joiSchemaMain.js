@@ -1,14 +1,16 @@
 const Joi = require('joi')
 
 const schemaMain = Joi.object({
-    uniqueId: Joi.string().required(),
-    driveLink: Joi.string().required(),
-    thumbnail: Joi.string().required(),
-    startUpName: Joi.string().required(),
-    description: Joi.string().required(),
+    uniqueId: Joi.string(),
+    userId: Joi.string(),
+    driveLink: Joi.string(),
+    date:Joi.string(),
+    thumbnail: Joi.string(),
+    startUpName: Joi.string(),
+    description: Joi.string(),
     likeCount: Joi.number(),
     commentSection: Joi.array().items(Joi.string()),
-    strikeButton: Joi.string(),
+    strikeButton: Joi.number(),
     founderName: Joi.string(),
     aboutYou: Joi.string(),
     image: Joi.string(),

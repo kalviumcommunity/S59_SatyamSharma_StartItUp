@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie';
 
 const AppContext = createContext();
 
@@ -19,6 +20,17 @@ export const AppProvider = ({ children }) => {
     const[publics,setPublic]=useState([]);
     const[pub,setPub]=useState(false)
 
+    const[main,setMain]=useState(false)
+
+    const[presentDataId,setPresentDataId]=useState("")
+  const[mainData,setMainData]=useState([])
+
+    useEffect(() => {
+      const presentPostIdCookie = Cookies.get('presentPostId');
+      if (presentPostIdCookie) {
+          setPresentDataId(presentPostIdCookie);
+      }
+  }, [main]);
 
   
     useEffect(() => {
@@ -116,7 +128,27 @@ export const AppProvider = ({ children }) => {
     fetchPublicData(); 
   }, [pub]);
   
-  
+  useEffect(() => {
+    const fetchMainData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const feedbackData = await response.json();
+          setMainData(feedbackData); 
+        } else {
+          toast.error("Failed to fetch feedback data");
+        }
+      } catch (err) {
+        toast.error("Failed to fetch feedback data");
+      }
+    };
+    fetchMainData(); 
+  }, [main]);  
 
     const logout = () => {
         setToken(null);
@@ -148,7 +180,11 @@ export const AppProvider = ({ children }) => {
         feedback,
         pub,
         setPub,
-        publics
+        publics,
+        setMain,
+        main,
+        presentDataId,
+        mainData
       }}
     >
       {children}

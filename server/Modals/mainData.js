@@ -3,23 +3,24 @@ const mongoose = require('mongoose');
 const mainData= new mongoose.Schema({
     uniqueId:{
         type : String,
-        required : true
+    },
+    userId:{
+        type : String,
     },
     driveLink:{
         type: String,
-        required : true
     },
     thumbnail:{
         type :String,
-        required : true
     },
     startUpName:{
         type :String,
-        required :true
+    },
+    date:{
+        type :String,
     },
     description:{
         type :String,
-        required :true
     },
     likeCount:{
         type :Number
@@ -28,7 +29,7 @@ const mainData= new mongoose.Schema({
         type :[String]
     },
     strikeButton:{
-        type :String
+        type :Number
     },
     founderName:{
         type : String

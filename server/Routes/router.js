@@ -194,11 +194,12 @@ router.post('/mainDatas',authToken, validateInput(schemaMain), async (req, res, 
     try {
         const newPost = new mainData(req.body);
         const savedPost = await newPost.save();
-        res.status(201).json(savedPost);
+        res.status(201).json({ _id: savedPost._id }); 
     } catch (error) {
         next(error);
     }
 });
+
 
 router.post('/profiles', authToken, validateInput(profileSchema), async (req, res, next) => {
     try {

@@ -1,12 +1,16 @@
 const Joi = require('joi');
 
 const trendingSchema = Joi.object({
-    uniqueId: Joi.string().required(),
-    subheading: Joi.string().required(),
-    heading: Joi.string().required(),
-    content: Joi.string().required(),
-    image: Joi.string().required(),
-    siteURL: Joi.string().uri().required()
+    uniqueId: Joi.string(),
+    userId: Joi.string(),
+    date: Joi.string(),
+    subheading: Joi.string(),
+    heading: Joi.string(),
+    content: Joi.string(),
+    image: Joi.string(),
+    siteURL: Joi.string(),
+    likeCount: Joi.number(),
+    strikeButton: Joi.number()
 });
 
 const validateTrend = (data) => {

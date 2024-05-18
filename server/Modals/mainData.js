@@ -1,33 +1,30 @@
+const { boolean } = require('joi');
 const mongoose = require('mongoose');
 
 const mainData= new mongoose.Schema({
     uniqueId:{
         type : String,
-        required: true
     },
     userId:{
-        type : String,
-        required: true
+        type : String,  
     },
     driveLink:{
-        type: String,
-        required: true
+        type: String,  
     },
     thumbnail:{
         type :String,
-        required: true
     },
     startUpName:{
-        type :String,
-        required: true
+        type :String,    
     },
     date:{
-        type :String,
-        required: true
+        type :String,  
+    },
+    equityValue:{
+        type :Number,  
     },
     description:{
-        type :String,
-        required: true
+        type :String,   
     },
     likeCount:{
         type :Number
@@ -37,6 +34,9 @@ const mainData= new mongoose.Schema({
     },
     strikeButton:{
         type :Number
+    },
+    inventAsked:{
+        type :Boolean
     },
     founderName:{
         type : String
@@ -51,13 +51,16 @@ const mainData= new mongoose.Schema({
         type : String
     },
     currentEvaluation:{
-        type : String
+        type : Number
     },
     yourAsk:{
-        type : String
+        type : Number
     },
     equityOffered:{
-        type : String
+        type : Number
+    },
+    creditNote:{
+        type :String,  
     },
     revenueStatus:{
         type : String
@@ -66,16 +69,16 @@ const mainData= new mongoose.Schema({
         type : Boolean
     },
     tokenAmount:{
-        type : String
+        type : Number
     },
     tokenLeft:{
-        type : String
+        type : Number
     },
     address:{
         type : String
     },
     contactNumber:{
-        type : Number
+        type : String
     },
     messageForInvestor:{
         type : String

@@ -33,7 +33,6 @@ function FounderDetails() {
 	}
 
   
-console.log(presentDataId)
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!imageList) {

@@ -26,7 +26,7 @@ const schemaMain = Joi.object({
     tokenLeft: Joi.number(),
     equityValue: Joi.number(),
     address: Joi.string(),
-    contactNumber: Joi.string(),
+    contactNumber: Joi.number(),
     messageForInvestor: Joi.string(),
     previousInvestor: Joi.string(),
     jobRequest: Joi.string(),

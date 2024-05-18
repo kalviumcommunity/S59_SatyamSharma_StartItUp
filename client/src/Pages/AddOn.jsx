@@ -18,7 +18,9 @@ function AddOn() {
 
 
 	const uploadImg=()=>{
-		if(imageUpload==null) return;
+		if(imageUpload==null){
+      return
+    }
 		const imageRef = ref(storage,`images/${imageUpload.name+v4()}`)
 		uploadBytes(imageRef,imageUpload).then((file)=>{
 			alert("Image Uploaded");

@@ -78,7 +78,7 @@ const mainData= new mongoose.Schema({
         type : String
     },
     contactNumber:{
-        type : String
+        type : Number
     },
     messageForInvestor:{
         type : String

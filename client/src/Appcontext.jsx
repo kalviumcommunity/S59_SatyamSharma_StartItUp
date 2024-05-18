@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const AppContext = createContext();
 
@@ -24,6 +26,10 @@ export const AppProvider = ({ children }) => {
 
     const[presentDataId,setPresentDataId]=useState("")
   const[mainData,setMainData]=useState([])
+
+  const[trendingPg,setTrendingPg]=useState([])
+  const[tren,setTren]=useState(true)
+
 
     useEffect(() => {
       const presentPostIdCookie = Cookies.get('presentPostId');
@@ -148,7 +154,29 @@ export const AppProvider = ({ children }) => {
       }
     };
     fetchMainData(); 
-  }, [main]);  
+  }, [main]);
+
+  useEffect(() => {
+    const fetchtrending = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/trendings`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const trendingData = await response.json();
+          setTrendingPg(trendingData); 
+        } else {
+          toast.error("Failed to fetch feedback data");
+        }
+      } catch (err) {
+        toast.error("Failed to fetch feedback data");
+      }
+    };
+    fetchtrending(); 
+  }, [tren]); 
 
     const logout = () => {
         setToken(null);
@@ -184,7 +212,10 @@ export const AppProvider = ({ children }) => {
         setMain,
         main,
         presentDataId,
-        mainData
+        mainData,
+        tren,
+        setTren,
+        trendingPg
       }}
     >
       {children}

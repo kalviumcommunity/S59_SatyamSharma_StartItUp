@@ -2,29 +2,35 @@ const mongoose = require('mongoose');
 
 const trendingSchema= new mongoose.Schema({
     uniqueId:{
+        type : String,  
+    },
+    userId:{
         type : String,
-        required : true
+    },
+    date:{
+        type : String,
     },
     subheading:{
-        type : String,
-        required : true
+        type : String,   
     },
     heading:{
-        type : String,
-        required : true
+        type : String,   
     },
     content:{
-        type : String,
-        required : true
+        type : String,   
     },
     image:{
-        type : String,
-        required : true
+        type : String,  
     },
     siteURL:{
-        type : String,
-        required : true
+        type : String,   
     },
+    likeCount:{
+        type : Number,   
+    },
+    strikeButton:{
+        type : Number,   
+    }
 })
 
 const trend = mongoose.model('trendings',trendingSchema);

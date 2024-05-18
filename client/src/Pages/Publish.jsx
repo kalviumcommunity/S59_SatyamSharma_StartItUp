@@ -62,6 +62,7 @@ function Publish() {
 						thumbnail: imageList,
 						driveLink: driveLink,
 						date: currentDate,
+						inventAsked:false,
 						likeCount: 0,
 						strikeButton: 0,
 					}),

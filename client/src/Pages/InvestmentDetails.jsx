@@ -1,11 +1,59 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import { useAppContext } from '../Appcontext';
 
 function InvestmentDetails() {
+  const {token,setMain,main,presentDataId} = useAppContext();
+
+  const [currentEval,setcurrentEval]=useState();
+  const [yourAsk,setyourAsk]=useState()
+  const [creditNote,setcreditNote]=useState()
+  const [revenue,setrevenue]=useState("")
+
+console.log(currentEval,yourAsk)
+  const handleSubmit = async (e) => {
+		e.preventDefault();
+    const currentEvalNum = parseFloat(currentEval);
+    const yourAskNum = parseFloat(yourAsk);
+
+    if (currentEvalNum < yourAskNum) {
+      toast.info('Your Ask Should Be less than Evaluation');
+    } else{
+			try {
+        const equityOffered = ((yourAskNum / currentEvalNum) * 100).toFixed(2);
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`,
+					},
+					body: JSON.stringify({
+						currentEvaluation: currentEval,
+						yourAsk: yourAsk,
+						equityOffered: equityOffered,
+            creditNote : creditNote,
+						revenueStatus: revenue,
+            inventAsked:true,
+					}),
+				});
+				if (response.ok) {
+					toast.success(`Posted`);
+				} else {
+					toast.info('Login to Post Content');
+				}
+			} catch (error) {
+				toast.error("Error", error);
+			}
+			setMain(!main);
+    }
+	};
 
   
   return (
     <div className='flex justify-center   items-center '>
+      <ToastContainer/>
         <div className='w-full fixed lg:top-28 top-10 left-2 lg:mb-20 mb-10 justify-start items-center'>
         <Link to='/publishUser'>
         <button className=" m-2 items-center lg:px-2 p-1  lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600">
@@ -19,14 +67,14 @@ function InvestmentDetails() {
     Investment Details
   </h4>
   
-  <form class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
+  <form onSubmit={handleSubmit} class="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
     <div class="flex flex-col gap-6 mb-1">
       <h6
         class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
         Current Evaluation
       </h6>
       <div class="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Enter Amount"
+        <input placeholder="Enter Amount" onChange={(e)=>setcurrentEval(e.target.value)} value={currentEval} required type='number'
           class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
@@ -34,15 +82,15 @@ function InvestmentDetails() {
         Your Ask
       </h6>
       <div class="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Enter Amount You want"
+        <input placeholder="Enter Amount You want" onChange={(e)=>setyourAsk(e.target.value)} value={yourAsk} required type='number'
           class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
         class="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Equity Offered
+        Credit Note
       </h6>
       <div class="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Equity Offered"
+        <input placeholder="Willing to get loan or not" onChange={(e)=>setcreditNote(e.target.value)} value={creditNote} required type='text'
           class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
@@ -50,13 +98,13 @@ function InvestmentDetails() {
           Revenue Status
       </h6>
       <div class="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Profitibility, Quaterly Revenue Rate"
+        <input placeholder="Profitibility, Quaterly Revenue Rate" onChange={(e)=>setrevenue(e.target.value)} value={revenue} required
           class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
     </div>
     <div class="inline-flex items-center">
       <label class="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3" htmlFor="remember">
-        <input type="checkbox"
+        <input type="checkbox" required
           class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
           id="remember" />
         <span

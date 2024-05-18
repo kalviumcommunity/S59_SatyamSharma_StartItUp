@@ -1,9 +1,78 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { storage } from '../../firebase'
+import {ref,uploadBytes,getDownloadURL} from 'firebase/storage'
+import {v4} from 'uuid'
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
+import { useAppContext } from '../Appcontext';
 
 function AddOn() {
+	const { id,userId,token,tren,setTren} = useAppContext();
+	const [imageUpload, setImageUpload] = useState(null);
+	const [imageList,setImageList]=useState(null);
+	const[title,settitle]=useState("");
+  const[tagline,settagline]=useState("");
+	const[description,setdescription]=useState("");
+  const[siteUrl,setsiteUrl]=useState("");
+
+
+	const uploadImg=()=>{
+		if(imageUpload==null){
+      return
+    }
+		const imageRef = ref(storage,`images/${imageUpload.name+v4()}`)
+		uploadBytes(imageRef,imageUpload).then((file)=>{
+			alert("Image Uploaded");
+			getDownloadURL(file.ref).then((url)=>{
+				setImageList(url);
+			});
+		})
+		.catch((err)=>{
+			console.log("Error Occured",err)
+		})
+	}
+
+  const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!imageList) {
+			toast.info('Please Add Image For Thumbnail');
+		} else {
+			try {
+				const currentDate = new Date().toISOString().slice(0, 10);
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/trendings`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`,
+					},
+					body: JSON.stringify({
+						uniqueId: id,
+						userId: userId,
+            date: currentDate,
+						subheading: tagline,
+						heading: title,
+						content: description,
+            image: imageList,
+            siteURL:siteUrl,
+						likeCount: 0,
+						strikeButton: 0,
+					}),
+				});
+				if (response.ok){
+					toast.success(`Posted`);
+				} else {
+					toast.info('Login to Post Content');
+				}
+			} catch (error) {
+				toast.error("Error", error);
+			}
+			setTren(!tren);
+		}
+	};
   return (
     <div>
+      <ToastContainer/>
             <div className='flex  justify-center items-center'>  
         <div className='mt-36 mb-16 rounded-2xl'>
         <div className='w-full fixed lg:top-28 top-16 left-2 lg:mb-20 mb-10 justify-start items-center'>
@@ -18,14 +87,14 @@ function AddOn() {
     Trending Page
   </h4>
   
-  <form className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
+  <form onSubmit={handleSubmit} className="max-w-screen-lg mt-8 mb-2 w-80 sm:w-96">
     <div className="flex flex-col gap-6 mb-1">
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
         Title
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Start-Up Name"
+        <input placeholder="Start-Up Name" onChange={(e)=>settitle(e.target.value)} value={title} required
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
 
       </div>
@@ -34,7 +103,7 @@ function AddOn() {
         Tagline
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Add Company Tagline"
+        <input placeholder="Add Company Tagline" onChange={(e)=>settagline(e.target.value)} value={tagline} required
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
       <h6
@@ -42,30 +111,23 @@ function AddOn() {
         Discription
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="About Company Discription"
+        <input placeholder="About Company Discription" onChange={(e)=>setdescription(e.target.value)} value={description} required
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
       </div>
-      <h6
-        className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
-        Thumbnail Image
-      </h6>
-      <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Thumbnail Image"
-          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
-      </div>
+
       <h6
         className="block -mb-3 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-blue-gray-900">
         Site Link
       </h6>
       <div className="relative h-11 w-full min-w-[200px]">
-        <input placeholder="Enter URL"
+        <input placeholder="Enter URL" onChange={(e)=>setsiteUrl(e.target.value)} value={siteUrl} required
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
 
       </div>
     </div>
     <div className="inline-flex items-center">
       <label className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3" htmlFor="remember">
-        <input type="checkbox"
+        <input type="checkbox" required
           className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
           id="remember" />
         <span
@@ -89,10 +151,18 @@ function AddOn() {
     </div>
     <button
       className="mt-6 block w-full select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-      type="button">
+      type="submit">
       Submit
     </button>
   </form>
+  <div className="relative">
+							<input type="file" 
+							onChange={(e)=>{
+								setImageUpload(e.target.files[0])
+								}}/>
+							<button onClick={uploadImg} className='bg-white text-black'>Upload Image</button>
+						</div>
+						{imageList?<img src={imageList} className='h-96 w-72'></img>:null}
 </div>  
 </div> 
     </div>

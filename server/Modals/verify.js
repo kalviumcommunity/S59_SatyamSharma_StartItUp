@@ -4,27 +4,56 @@ const mongoose = require('mongoose');
 const verify= new mongoose.Schema({
     uniqueId:{
         type :String,
-        required: true
+    },
+    userId:{
+        type :String,
     },
     mobileNo:{
         type : Number,
-        required : true
+    },
+    nam:{
+        type: String
     },
     self:{
         type: String,
-        required : true
     },
-    socialMedia:{
+    tagline:{
+        type: String,
+    },
+    likes:{
+        type: Number,
+    },
+    blogPost: [{
+        date: {
+            type: String,
+        },
+        topic: {
+            type: String,
+        },
+        subHeading: {
+            type: Number,
+        },
+        description: {
+            type: Number,
+        }
+    }],
+    socialInsta:{
         type :String,
-        required : true
+    },
+    socialLinked:{
+        type :String,
     },
     email:{
         type :String,
-        required :true
+    },
+    usersLiked:{
+        type:[String]
+    },
+    picture:{
+        type :String,
     },
     idProf:{
         type :String,
-        required :true
     }
 })
 

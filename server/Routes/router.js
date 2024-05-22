@@ -96,15 +96,6 @@ router.get('/mainDatas', async (req, res, next) => {
     }
 });
 
-router.get('/verifys', async (req, res, next) => {
-    try {
-        const data = await verify.find();
-        res.send(data);
-    } catch (error) {
-        next(error);
-    }
-});
-
 
 router.get('/profiles', async (req, res, next) => {
     try {
@@ -112,6 +103,15 @@ router.get('/profiles', async (req, res, next) => {
         res.send(data);
     } catch (error) {
         next(error);
+    }
+});
+
+router.get('/verifys', async (req, res, next) => {
+    try {
+        const verifyData = await verify.find();
+        res.send(verifyData);
+    } catch (err) {
+        next(err);
     }
 });
 
@@ -180,21 +180,22 @@ router.post('/contents',authToken, validateInput(schemaChat), async (req, res, n
     }
 });
 
-router.post('/verifys',authToken, validateInput(schemaVerify), async (req, res, next) => {
-    try {
-        const newPost = new verify(req.body);
-        const savedPost = await newPost.save();
-        res.status(201).json(savedPost);
-    } catch (error) {
-        next(error);
-    }
-});
 
 router.post('/mainDatas',authToken, validateInput(schemaMain), async (req, res, next) => {
     try {
         const newPost = new mainData(req.body);
         const savedPost = await newPost.save();
         res.status(201).json({ _id: savedPost._id }); 
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post('/verifys',authToken, validateInput(schemaVerify), async (req, res, next) => {
+    try {
+        const newPost = new verify(req.body);
+        const savedPost = await newPost.save();
+        res.status(201).json({_id: savedPost._id});
     } catch (error) {
         next(error);
     }

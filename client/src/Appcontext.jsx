@@ -30,6 +30,12 @@ export const AppProvider = ({ children }) => {
   const[trendingPg,setTrendingPg]=useState([])
   const[tren,setTren]=useState(true)
 
+  const[verify,setVerify]=useState([])
+  const[ver,setVer]=useState(true)
+  const[presentVerfId,setPresentVerifId]=useState("")
+
+
+
 
     useEffect(() => {
       const presentPostIdCookie = Cookies.get('presentPostId');
@@ -37,6 +43,13 @@ export const AppProvider = ({ children }) => {
           setPresentDataId(presentPostIdCookie);
       }
   }, [main]);
+
+  useEffect(() => {
+    const presentverifIdCookie = Cookies.get('verifUserId');
+    if (presentverifIdCookie) {
+      setPresentVerifId(presentverifIdCookie);
+    }
+}, [main]);
 
   
     useEffect(() => {
@@ -157,6 +170,28 @@ export const AppProvider = ({ children }) => {
   }, [main]);
 
   useEffect(() => {
+    const fetchMainData = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_URL}/api/verifys`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (response.ok) {
+          const verifyData = await response.json();
+          setVerify(verifyData); 
+        } else {
+          toast.error("Failed to fetch feedback data");
+        }
+      } catch (err) {
+        toast.error("Failed to fetch feedback data");
+      }
+    };
+    fetchMainData(); 
+  }, [ver]);
+
+  useEffect(() => {
     const fetchtrending = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_URL}/api/trendings`, {
@@ -215,7 +250,11 @@ export const AppProvider = ({ children }) => {
         mainData,
         tren,
         setTren,
-        trendingPg
+        trendingPg,
+        verify,
+        ver,
+        setVer,
+        presentVerfId
       }}
     >
       {children}

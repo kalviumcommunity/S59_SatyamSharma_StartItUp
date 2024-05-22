@@ -28,10 +28,10 @@ import LogoutPage from './Pages/Logout';
 import Chat from './components/Chat';
 
 function App() {
-  const { token, id, nam, email, pic, userId, password,presentDataId,mainData,trendingPg } = useAppContext();
+  const { token, id, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
 
  
-  console.log("This Is Present Id",presentDataId,"this is main data",mainData)
+  console.log("This Is verif Id",presentVerfId,"this is verfiy data",verify,)
   
   return (
     <div className='bg-black'>

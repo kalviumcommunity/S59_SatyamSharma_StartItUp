@@ -1,9 +1,11 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 
 
 const verify= new mongoose.Schema({
     uniqueId:{
         type :String,
+        required: true
     },
     userId:{
         type :String,
@@ -31,10 +33,10 @@ const verify= new mongoose.Schema({
             type: String,
         },
         subHeading: {
-            type: Number,
+            type: String,
         },
         description: {
-            type: Number,
+            type: String,
         }
     }],
     socialInsta:{

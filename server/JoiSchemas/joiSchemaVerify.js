@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const schemaVerify = Joi.object({
-    uniqueId: Joi.string(),
+    uniqueId: Joi.string().required(),
     userId:  Joi.string(),
     mobileNo: Joi.number(),
     self: Joi.string(),

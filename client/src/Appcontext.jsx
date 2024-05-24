@@ -13,7 +13,9 @@ export const AppProvider = ({ children }) => {
     const[email,setEmail]=useState(null)
     const[pic,setPic]=useState(null)
     const[userId,setUserId]=useState(null)
-    const[password,setPassword]=useState(null)
+    const[publishId,setPublishId]=useState(null)
+    const[inverterId,setInvestorId]=useState(null)
+
     const[fet,setFet]=useState(false)
 
     const[feedback,setFeedback]=useState([]);
@@ -49,7 +51,7 @@ export const AppProvider = ({ children }) => {
     if (presentverifIdCookie) {
       setPresentVerifId(presentverifIdCookie);
     }
-}, [main]);
+}, [ver]);
 
   
     useEffect(() => {
@@ -88,6 +90,8 @@ export const AppProvider = ({ children }) => {
                       setUserId(userData?.userId);
                       setPic(userData?.picture);
                       setPassword(userData?.password);
+                      setPublishId(userData?.publishId);
+                      setInvestorId(userData?.investorId);
                   } else {
                       toast.error("Failed to fetch user data");
                   }

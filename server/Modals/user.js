@@ -19,6 +19,12 @@ const userSchema= new mongoose.Schema({
         salt: String,
         hash:String
     },
+    publishId:{
+      type: String,
+    },
+    investorId:{
+      type :String
+    },
     otp: {
       type: String
   }

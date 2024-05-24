@@ -115,6 +115,8 @@ router.get('/verifys', async (req, res, next) => {
     }
 });
 
+
+
 router.get('/trendings', async (req, res, next) => {
     try {
         const data = await trending.find();
@@ -450,8 +452,27 @@ router.patch('/contents/:id',authToken, validateInput(schemaChat), async (req, r
     updateDocument(public, req.params.id, req.body, res, next);
 });
 
-router.patch('/verifys/:id', validateInput(schemaVerify), async (req, res, next) => {
-    updateDocument(verify, req.params.id, req.body, res, next);
+
+router.patch('/verifys/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { blogPost } = req.body;
+
+        const updatedDocument = await verify.findByIdAndUpdate(
+            id,
+            { $push: { blogPost: blogPost } },
+            { new: true }
+        );
+        
+
+        if (!updatedDocument) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        res.status(200).json(updatedDocument);
+    } catch (error) {
+        next(error);
+    }
 });
 
 router.patch('/mainDatas/:id', validateInput(schemaMain), async (req, res, next) => {

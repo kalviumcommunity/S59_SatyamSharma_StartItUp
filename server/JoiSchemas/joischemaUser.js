@@ -5,6 +5,8 @@ const userSchema = Joi.object({
     emailId: Joi.string().email().required(),
     userId: Joi.string().required(),
     picture: Joi.string(),
+    publishId: Joi.string(),
+    investorId: Joi.string(),
     password: Joi.object({
         salt: Joi.string().required(),
         hash: Joi.string().required()

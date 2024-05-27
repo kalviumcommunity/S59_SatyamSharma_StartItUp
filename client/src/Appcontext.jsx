@@ -15,7 +15,7 @@ export const AppProvider = ({ children }) => {
     const[userId,setUserId]=useState(null)
     const[publishId,setPublishId]=useState(null)
     const[inverterId,setInvestorId]=useState(null)
-
+    const[password,setPassword]=useState(null)
     const[fet,setFet]=useState(false)
 
     const[feedback,setFeedback]=useState([]);

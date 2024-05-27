@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const verify= new mongoose.Schema({
     uniqueId:{
         type :String,
-        required: true
     },
     userId:{
         type :String,

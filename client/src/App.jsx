@@ -26,6 +26,7 @@ import Register from './Pages/Register';
 import { useAppContext } from './Appcontext';
 import LogoutPage from './Pages/Logout';
 import Chat from './components/Chat';
+import User from './Pages/User';
 
 function App() {
   const { token, id, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
@@ -46,7 +47,7 @@ function App() {
         <Route path='trending' element={<Trending />} />
         <Route path='Connect' element={<ProfileCard />} />
         <Route path='Chat' element={<Chat />} />
-
+        <Route path='user' element={<User />} />
         <Route path='Connect/investorsPro' element={<InvestorPro />} />
         <Route path='Login' element={<LoginForm />} />
         <Route path='Logout' element={<LogoutPage />} />

@@ -40,46 +40,65 @@ function Publish() {
 
 
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!imageList) {
+            toast.info('Please add image for thumbnail');
+            return;
+        }
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (!imageList) {
-			toast.info('Please Add Image For Thumbnail');
-		} else {
-			try {
-				const currentDate = new Date().toISOString().slice(0, 10);
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'Authorization': `Bearer ${token}`,
-					},
-					body: JSON.stringify({
-						uniqueId: id,
-						userId: userId,
-						startUpName: heading,
-						description: description,
-						thumbnail: imageList,
-						driveLink: driveLink,
-						date: currentDate,
-						inventAsked:false,
-						likeCount: 0,
-						strikeButton: 0,
-					}),
-				});
-				if (response.ok) {
-					const data = await response.json(); 
-					Cookies.set('presentPostId', data._id); 
-					toast.success(`Posted`);
-				} else {
-					toast.info('Login to Post Content');
-				}
-			} catch (error) {
-				toast.error("Error", error);
-			}
-			setMain(!main);
-		}
-	};
+        try {
+            const currentDate = new Date().toISOString().slice(0, 10);
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    uniqueId: id,
+                    userId: userId,
+                    startUpName: heading,
+                    description: description,
+                    thumbnail: imageList,
+                    driveLink: driveLink,
+                    date: currentDate,
+                    inventAsked: false,
+                    likeCount: 0,
+                    strikeButton: 0,
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                try {
+                    const patchResponse = await fetch(`${import.meta.env.VITE_URL}/auth/register/${id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            publishId: data._id,
+                        }),
+                    });
+
+                    if (patchResponse.ok) {
+                        toast.success('Password and UserId successfully set');
+                    } else {
+                        toast.error('Failed to set Password and UserId');
+                    }
+                } catch (err) {
+                    toast.error('Error occurred during Password and UserId setting');
+                }
+                setMain(!main);
+            } else {
+                toast.info('Login to post content');
+            }
+        } catch (error) {
+            console.error('Error occurred:', error);
+            toast.error('Error occurred while posting content');
+        }
+    };
 	
 
   return (

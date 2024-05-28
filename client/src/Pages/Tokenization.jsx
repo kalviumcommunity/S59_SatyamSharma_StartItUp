@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
 function Tokenization() {
-    const {token,setMain,main,presentDataId,mainData} = useAppContext();
+    const {token,setMain,main,publishId,mainData} = useAppContext();
     const[presentEval,setPresentEvalation]=useState()
     const[ask,setAsk]=useState()
     const[equityOffered,setEquityOffered]=useState()
@@ -17,10 +17,10 @@ function Tokenization() {
 
 
     useEffect(() => {
-        if (!presentDataId) {
+        if (!publishId) {
             console.log("No ID present");
         } else {
-            const presentProperty = mainData.filter((e) => e._id === presentDataId);
+            const presentProperty = mainData.filter((e) => e._id === publishId);
             if (presentProperty.length > 0) {
                 setPresentEvalation(presentProperty[0].currentEvaluation);
                 setAsk(presentProperty[0].yourAsk);
@@ -30,14 +30,14 @@ function Tokenization() {
                 setInvestmentAsked(presentProperty[0].inventAsked);
             }
         }
-    }, [presentDataId, mainData]);
+    }, [publishId, mainData]);
 
       
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 			try {
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${publishId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',

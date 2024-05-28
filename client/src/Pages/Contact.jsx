@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useAppContext } from '../Appcontext';
 
 function Contact() {
-  const {token,setMain,main,presentDataId} = useAppContext();
+  const {token,setMain,main,publishId} = useAppContext();
 
   const [address,setAddress]=useState("");
   const [contact,setcontact]=useState("")
@@ -16,7 +16,7 @@ function Contact() {
   const handleSubmit = async (e) => {
 		e.preventDefault();
 			try {
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${publishId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',

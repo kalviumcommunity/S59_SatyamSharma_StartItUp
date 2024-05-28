@@ -1,49 +1,51 @@
 const express = require('express');
 const router = express.Router();
 
-const public = require('../Modals/public');
-const mainData = require('../Modals/mainData');
-const verify = require('../Modals/verify');
-const users = require('../Modals/user');
-const profile = require('../Modals/profile');
-const trending = require('../Modals/trending');
-const feedback = require('../Modals/feedback');
-const connectInv = require('../Modals/connectInves');
-const connectFoun = require('../Modals/connectFound');
-const collections = require('../Modals/collection');
+const public = require('../Modals/public')
+const mainData = require('../Modals/mainData')
+const verify = require('../Modals/verify')
+const users=require('../Modals/user')
+const profile=require('../Modals/profile')
+const trending=require('../Modals/trending')
+const feedback=require('../Modals/feedback')
+const connectInv=require('../Modals/connectInves')
+const connectFoun=require('../Modals/connectFound')
+const collections=require('../Modals/collection')
 
-const { schemaChat } = require('../JoiSchemas/joiSchemaPublic');
-const { schemaVerify } = require('../JoiSchemas/joiSchemaVerify');
-const { schemaMain } = require('../JoiSchemas/joiSchemaMain');
-const { profileSchema } = require('../JoiSchemas/joiSchemaProfile');
-const { collectionSchema } = require('../JoiSchemas/joischemaCollection');
-const { feedbackSchema } = require('../JoiSchemas/joischemaFeedback');
-const { trendingSchema } = require('../JoiSchemas/joischemaTrending');
-const { userSchema } = require('../JoiSchemas/joischemaUser');
-const { founderSchema } = require('../JoiSchemas/joischemaconnectFounder');
-const { investSchema } = require('../JoiSchemas/joischemaconnectInvest');
+const {schemaChat} = require('../JoiSchemas/joiSchemaPublic')
+const {schemaVerify} = require('../JoiSchemas/joiSchemaVerify')
+const {schemaMain} = require('../JoiSchemas/joiSchemaMain')
+const {profileSchema} = require('../JoiSchemas/joiSchemaProfile')
+const {collectionSchema} = require('../JoiSchemas/joischemaCollection')
+const {feedbackSchema} = require('../JoiSchemas/joischemaFeedback')
+const {trendingSchema} = require('../JoiSchemas/joischemaTrending')
+const {userSchema} = require('../JoiSchemas/joischemaUser')
+const {founderSchema} = require('../JoiSchemas/joischemaconnectFounder')
+const {investSchema} = require('../JoiSchemas/joischemaconnectInvest')
 
-const jwt = require('jsonwebtoken');
-const { connectDB } = require('../db');
-require('dotenv').config();
-connectDB();
+
+const jwt =require('jsonwebtoken')
+const {connectDB} = require('../db')
+require('dotenv').config()
+connectDB()
+
 
 const authToken = (req, res, next) => {
     const authHead = req.headers['authorization'];
-    const token = authHead && authHead.split(' ')[1];
-    if (token == null) {
-        return res.status(401).json({ error: "Unauthorized Access", message: "You are not authorized to access this resource." });
+    const token = authHead && authHead.split(' ')[1];  
+    if(token == null){
+      return res.status(401).json({ error: "Unauthorized Access", message: "You are not authorized to access this resource." });
     }
-
+    
     jwt.verify(token, process.env.SECRET_KEY, (err, userId) => {
-        if (err) {
-            return res.status(403).json({ error: "Forbidden", message: "Access forbidden. Please login again." });
-        }
-        req.userId = userId;
+      if(err){
+        return res.status(403).json({ error: "Forbidden", message: "Access forbidden. Please login again." });
+      }
+      req.userId = userId;
 
-        next();
-    });
-};
+     next();
+  });
+  }
 
 function validateInput(schema) {
     return (req, res, next) => {
@@ -55,12 +57,13 @@ function validateInput(schema) {
     };
 }
 
+
 function errorHandler(err, req, res, next) {
     console.error("Error occurred:", err);
     res.status(500).json({ error: 'Internal Server Error' });
 }
 
-async function updateDocument(Model, id, updateData, res, next) {
+async function updateDocument(Model, id, updateData, res) {
     try {
         const updatedDocument = await Model.findByIdAndUpdate(id, updateData, {
             new: true,
@@ -71,7 +74,7 @@ async function updateDocument(Model, id, updateData, res, next) {
         }
         res.status(200).json(updatedDocument);
     } catch (error) {
-        next(error);
+        next(error); 
     }
 }
 
@@ -92,6 +95,7 @@ router.get('/mainDatas', async (req, res, next) => {
         next(error);
     }
 });
+
 
 router.get('/profiles', async (req, res, next) => {
     try {
@@ -165,7 +169,8 @@ router.get('/users', async (req, res, next) => {
     }
 });
 
-router.post('/contents', authToken, validateInput(schemaChat), async (req, res, next) => {
+
+router.post('/contents',authToken, validateInput(schemaChat), async (req, res, next) => {
     try {
         const newPost = new public(req.body);
         const savedPost = await newPost.save();
@@ -175,25 +180,27 @@ router.post('/contents', authToken, validateInput(schemaChat), async (req, res, 
     }
 });
 
-router.post('/mainDatas', authToken, validateInput(schemaMain), async (req, res, next) => {
+
+router.post('/mainDatas',authToken, validateInput(schemaMain), async (req, res, next) => {
     try {
         const newPost = new mainData(req.body);
         const savedPost = await newPost.save();
-        res.status(201).json({ _id: savedPost._id });
+        res.status(201).json({ _id: savedPost._id }); 
     } catch (error) {
         next(error);
     }
 });
 
-router.post('/verifys', authToken, validateInput(schemaVerify), async (req, res, next) => {
+router.post('/verifys',authToken, validateInput(schemaVerify), async (req, res, next) => {
     try {
         const newPost = new verify(req.body);
         const savedPost = await newPost.save();
-        res.status(201).json({ _id: savedPost._id });
+        res.status(201).json({_id: savedPost._id});
     } catch (error) {
         next(error);
     }
 });
+
 
 router.post('/profiles', authToken, validateInput(profileSchema), async (req, res, next) => {
     try {
@@ -265,6 +272,7 @@ router.post('/users', authToken, validateInput(userSchema), async (req, res, nex
     }
 });
 
+
 router.put('/contents/:id', validateInput(schemaChat), async (req, res, next) => {
     updateDocument(public, req.params.id, req.body, res, next);
 });
@@ -305,17 +313,13 @@ router.put('/users/:id', validateInput(userSchema), async (req, res, next) => {
     updateDocument(users, req.params.id, req.body, res, next);
 });
 
-router.patch('/verifys/:id', authToken, validateInput(schemaVerify), async (req, res, next) => {
-    updateDocument(verify, req.params.id, req.body, res, next);
-});
-
 router.delete('/contents/:id', async (req, res, next) => {
     try {
         const deletedPost = await public.findByIdAndDelete(req.params.id);
         if (!deletedPost) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -323,11 +327,23 @@ router.delete('/contents/:id', async (req, res, next) => {
 
 router.delete('/mainDatas/:id', async (req, res, next) => {
     try {
-        const deletedPost = await mainData.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
+        const deletedData = await mainData.findByIdAndDelete(req.params.id);
+        if (!deletedData) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/verifys/:id', async (req, res, next) => {
+    try {
+        const deletedVerify = await verify.findByIdAndDelete(req.params.id);
+        if (!deletedVerify) {
+            return res.status(404).json({ error: 'Data not found' });
+        }
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -339,19 +355,7 @@ router.delete('/profiles/:id', async (req, res, next) => {
         if (!deletedProfile) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedProfile);
-    } catch (error) {
-        next(error);
-    }
-});
-
-router.delete('/verifys/:id', async (req, res, next) => {
-    try {
-        const deletedPost = await verify.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
-            return res.status(404).json({ error: 'Data not found' });
-        }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -359,11 +363,11 @@ router.delete('/verifys/:id', async (req, res, next) => {
 
 router.delete('/trendings/:id', async (req, res, next) => {
     try {
-        const deletedPost = await trending.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
+        const deletedTrending = await trending.findByIdAndDelete(req.params.id);
+        if (!deletedTrending) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -371,11 +375,11 @@ router.delete('/trendings/:id', async (req, res, next) => {
 
 router.delete('/feedbacks/:id', async (req, res, next) => {
     try {
-        const deletedPost = await feedback.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
+        const deletedFeedback = await feedback.findByIdAndDelete(req.params.id);
+        if (!deletedFeedback) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -383,11 +387,11 @@ router.delete('/feedbacks/:id', async (req, res, next) => {
 
 router.delete('/connectInves/:id', async (req, res, next) => {
     try {
-        const deletedPost = await connectInv.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
+        const deletedInvestment = await connectInv.findByIdAndDelete(req.params.id);
+        if (!deletedInvestment) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -395,11 +399,11 @@ router.delete('/connectInves/:id', async (req, res, next) => {
 
 router.delete('/connectFoun/:id', async (req, res, next) => {
     try {
-        const deletedPost = await connectFoun.findByIdAndDelete(req.params.id);
-        if (!deletedPost) {
+        const deletedFounder = await connectFoun.findByIdAndDelete(req.params.id);
+        if (!deletedFounder) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedPost);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -411,7 +415,7 @@ router.delete('/collections/:id', async (req, res, next) => {
         if (!deletedCollection) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedCollection);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
@@ -423,11 +427,84 @@ router.delete('/users/:id', async (req, res, next) => {
         if (!deletedUser) {
             return res.status(404).json({ error: 'Data not found' });
         }
-        res.status(200).json(deletedUser);
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         next(error);
     }
 });
+
+router.get('/users/:id', async (req, res, next) => {
+    try {
+        const user = await users.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+router.patch('/contents/:id',authToken, validateInput(schemaChat), async (req, res, next) => {
+    updateDocument(public, req.params.id, req.body, res, next);
+});
+
+
+router.patch('/verifys/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { blogPost } = req.body;
+
+        const updatedDocument = await verify.findByIdAndUpdate(
+            id,
+            { $push: { blogPost: blogPost } },
+            { new: true }
+        );
+
+
+        if (!updatedDocument) {
+            return res.status(404).json({ message: 'Document not found' });
+        }
+
+        res.status(200).json(updatedDocument);
+    } catch (error) {
+        next(error);
+    }
+});
+router.patch('/mainDatas/:id', validateInput(schemaMain), async (req, res, next) => {
+    updateDocument(mainData, req.params.id, req.body, res, next);
+});
+
+router.patch('/profiles/:id', validateInput(profileSchema), async (req, res, next) => {
+    updateDocument(profile, req.params.id, req.body, res, next);
+});
+
+router.patch('/trendings/:id', validateInput(trendingSchema), async (req, res, next) => {
+    updateDocument(trending, req.params.id, req.body, res, next);
+});
+
+router.patch('/feedbacks/:id', validateInput(feedbackSchema), async (req, res, next) => {
+    updateDocument(feedback, req.params.id, req.body, res, next);
+});
+
+router.patch('/connectInves/:id', validateInput(investSchema), async (req, res, next) => {
+    updateDocument(connectInv, req.params.id, req.body, res, next);
+});
+
+router.patch('/connectFoun/:id', validateInput(founderSchema), async (req, res, next) => {
+    updateDocument(connectFoun, req.params.id, req.body, res, next);
+});
+
+router.patch('/collections/:id', validateInput(collectionSchema), async (req, res, next) => {
+    updateDocument(collections, req.params.id, req.body, res, next);
+});
+
+router.patch('/users/:id', validateInput(userSchema), async (req, res, next) => {
+    updateDocument(users, req.params.id, req.body, res, next);
+});
+
+
 
 router.use(errorHandler);
 

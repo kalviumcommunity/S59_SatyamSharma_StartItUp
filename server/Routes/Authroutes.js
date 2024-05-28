@@ -200,10 +200,25 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+const updateUserFields = (req, res, next) => {
+  const { userName, emailId, password, userId, investorId, publishId } = req.body;
 
-router.patch('/register/:id', async (req, res) => {
+  req.userUpdates = {
+    userName,
+    emailId,
+    userId,
+    investorId,
+    publishId,
+    password,
+  };
+
+  next();
+};
+
+
+
+router.patch('/register/:id', updateUserFields, async (req, res) => {
   const id = req.params.id;
-  const { userName, emailId, password,userId } = req.body;
 
   try {
     const existingUser = await User.findById(id);
@@ -212,10 +227,30 @@ router.patch('/register/:id', async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    if (userName) existingUser.userName = userName;
-    if (emailId) existingUser.emailId = emailId;
-    if (userId) existingUser.userId = userId;
-    if (password) existingUser.setPassword(password);
+    const { emailId, userId } = req.userUpdates;
+
+    if (emailId || userId) {
+      const existing = await User.findOne({
+        $and: [
+          { _id: { $ne: id } },
+          { $or: [{ emailId }, { userId }] }
+        ]
+      });
+
+      if (existing) {
+        return res.status(400).json({ error: "Email ID or User ID already in use" });
+      }
+    }
+
+    Object.keys(req.userUpdates).forEach((key) => {
+      if (req.userUpdates[key]) {
+        if (key === 'password') {
+          existingUser.setPassword(req.userUpdates[key]);
+        } else {
+          existingUser[key] = req.userUpdates[key];
+        }
+      }
+    });
 
     const updatedUser = await existingUser.save();
 
@@ -225,6 +260,7 @@ router.patch('/register/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 function generateOTP() {

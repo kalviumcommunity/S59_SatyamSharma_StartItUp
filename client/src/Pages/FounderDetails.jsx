@@ -15,7 +15,7 @@ function FounderDetails() {
   const [socialMedia,setSocialMedia]=useState("")
 
 
-  const {token,setMain,main,presentDataId} = useAppContext();
+  const {token,setMain,main,publishId} = useAppContext();
 
 
   const uploadImg=()=>{
@@ -39,7 +39,7 @@ function FounderDetails() {
 			toast.info('Please Add Image For Profile Pic');
 		} else {
 			try {
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${publishId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',

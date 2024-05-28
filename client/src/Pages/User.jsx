@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function User() {
-    const { nam, token, setVer, id, ver, presentVerfId, verify } = useAppContext();
+    const { nam, token, setVer, id, ver, investorId, verify } = useAppContext();
 
     const [open, setOpen] = useState(false);
     const [heading, setHeading] = useState("");
@@ -33,7 +33,7 @@ function User() {
                 }
             ];
 
-            const response = await fetch(`${import.meta.env.VITE_URL}/api/verifys/${presentVerfId}`, {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/verifys/${investorId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

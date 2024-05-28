@@ -1,65 +1,76 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAppContext } from '../Appcontext';
 
 function ContactUs() {
-    const [userID, setUserID] = useState('');
-    const [userPass, setUserPass] = useState('');
-    const [confirmPass, setConfirmPass] = useState('');
-    const [userIdError, setUserIdError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
-    const { logout,nam,pic,id,fet,setFet } = useAppContext();
+  const [userID, setUserID] = useState('');
+  const [userPass, setUserPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [userIdError, setUserIdError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+  const { logout, nam, pic, id, fet, setFet } = useAppContext();
 
+  useEffect(() => {
+    const userIdPattern = /^(?!@)(?=.*\d)[^\s]{6,}$/;
+    const passwordPattern = /^(?!.*\s)(?=.*[a-zA-Z0-9])(?=.*[\W_]).{6,}$/;
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        const userIdPattern = /^(?!@)(?=.*\d)[^\s]{6,}$/;
-        if (!userIdPattern.test(userID)) {
-            setUserIdError('User must contain at least 6 characters including one number, it should not start with @, and EmptySpace not allowed');
-            return;
-        } else {
-            setUserIdError('');
-        }
+    const isUserIdValid = userIdPattern.test(userID);
+    const isPasswordValid = passwordPattern.test(userPass);
+    const isConfirmPasswordValid = userPass === confirmPass;
 
-        const passwordPattern = /^(?!.*\s)(?=.*[a-zA-Z0-9])(?=.*[\W_]).{6,}$/;
-        if (!passwordPattern.test(userPass)) {
-            setPasswordError('Password must contain at least 6 characters including one special character, and space not allowed.');
-            return;
-        } else {
-            setPasswordError('');
-        }
+    setIsFormValid(isUserIdValid && isPasswordValid && isConfirmPasswordValid);
+  }, [userID, userPass, confirmPass]);
 
-        if (userPass !== confirmPass) {
-            setConfirmPasswordError('Passwords do not match');
-            return;
-        } else {
-            setConfirmPasswordError('');
-        }
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-        try {
-            const response = await fetch(`${import.meta.env.VITE_URL}/auth/register/${id}`, {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  userId: userID,
-                  password: userPass,
-                }),
-              });
-            if(response.ok)
-            toast.success('Password and UserId Successfully Set');
-        else{
-            toast.info('UserId Already Taken');
-        }
-        } catch (err) {
-            toast.error('Some error occurred.');
-        }
-        setFet(!fet)
-    };
+    const userIdPattern = /^(?!@)(?=.*\d)[^\s]{6,}$/;
+    if (!userIdPattern.test(userID)) {
+      setUserIdError('User must contain at least 6 characters including one number, it should not start with @, and EmptySpace not allowed');
+      return;
+    } else {
+      setUserIdError('');
+    }
+
+    const passwordPattern = /^(?!.*\s)(?=.*[a-zA-Z0-9])(?=.*[\W_]).{6,}$/;
+    if (!passwordPattern.test(userPass)) {
+      setPasswordError('Password must contain at least 6 characters including one special character, and space not allowed.');
+      return;
+    } else {
+      setPasswordError('');
+    }
+
+    if (userPass !== confirmPass) {
+      setConfirmPasswordError('Passwords do not match');
+      return;
+    } else {
+      setConfirmPasswordError('');
+    }
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/auth/register/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userID,
+          password: userPass,
+        }),
+      });
+      if(response.ok)
+        toast.success('Password and UserId Successfully Set');
+      else{
+        toast.info('UserId Already Taken');
+      }
+    } catch (err) {
+      toast.error('Some error occurred.');
+    }
+    setFet(!fet)
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-12">
@@ -197,8 +208,9 @@ function ContactUs() {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full text-white bg-blue-600 hover:bg-white hover:text-black hover:scale-105 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className={`w-full text-white bg-blue-600 hover:bg-white hover:text-black hover:scale-105 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ${!isFormValid ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 onClick={handleLogin}
+                                disabled={!isFormValid}
                             >
                                 Done
                             </button>

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useAppContext } from '../Appcontext';
 
 function InvestmentDetails() {
-  const {token,setMain,main,presentDataId} = useAppContext();
+  const {token,setMain,main,publishId} = useAppContext();
 
   const [currentEval,setcurrentEval]=useState();
   const [yourAsk,setyourAsk]=useState()
@@ -23,7 +23,7 @@ console.log(currentEval,yourAsk)
     } else{
 			try {
         const equityOffered = ((yourAskNum / currentEvalNum) * 100).toFixed(2);
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${publishId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',

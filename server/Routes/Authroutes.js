@@ -203,7 +203,7 @@ router.post('/login', async (req, res) => {
 
 router.patch('/register/:id', async (req, res) => {
   const id = req.params.id;
-  const { userName, emailId, password,userId } = req.body;
+  const { userName, emailId, password,userId,investorId,publishId } = req.body;
 
   try {
     const existingUser = await User.findById(id);
@@ -215,6 +215,8 @@ router.patch('/register/:id', async (req, res) => {
     if (userName) existingUser.userName = userName;
     if (emailId) existingUser.emailId = emailId;
     if (userId) existingUser.userId = userId;
+    if (investorId) existingUser.investorId = investorId;
+    if (publishId) existingUser.publishId = publishId;
     if (password) existingUser.setPassword(password);
 
     const updatedUser = await existingUser.save();

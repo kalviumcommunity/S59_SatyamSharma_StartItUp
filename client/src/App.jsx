@@ -30,10 +30,10 @@ import User from './Pages/User';
 import AboutPg from './Pages/AboutPg';
 
 function App() {
-  const { token, id, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
+  const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
 
  
-  console.log("This Is verif Id",presentVerfId,"this is verfiy data",verify,)
+  console.log("This Is verif Id",presentVerfId,"this is verfiy data",verify, publishId, investorId)
   
   return (
     <div className='bg-black'>

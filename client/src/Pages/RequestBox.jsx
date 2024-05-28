@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useAppContext } from '../Appcontext';
 
 function RequestBox() {
-  const {token,setMain,main,presentDataId} = useAppContext();
+  const {token,setMain,main,publishId} = useAppContext();
 
   const [jobDet,setjobDet]=useState("");
   const [otherDet,setyotherDet]=useState("")
@@ -17,7 +17,7 @@ function RequestBox() {
     
 		e.preventDefault();
 			try {
-				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${presentDataId}`, {
+				const response = await fetch(`${import.meta.env.VITE_URL}/api/mainDatas/${publishId}`, {
 					method: 'PATCH',
 					headers: {
 						'Content-Type': 'application/json',

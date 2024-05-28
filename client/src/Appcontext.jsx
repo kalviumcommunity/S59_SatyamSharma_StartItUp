@@ -14,7 +14,7 @@ export const AppProvider = ({ children }) => {
     const[pic,setPic]=useState(null)
     const[userId,setUserId]=useState(null)
     const[publishId,setPublishId]=useState(null)
-    const[inverterId,setInvestorId]=useState(null)
+    const[investorId,setInvestorId]=useState(null)
     const[password,setPassword]=useState(null)
     const[fet,setFet]=useState(false)
 
@@ -104,6 +104,7 @@ export const AppProvider = ({ children }) => {
           fetchUserData();
       }
   }, [token,fet]);
+
 
 
   useEffect(() => {
@@ -222,6 +223,8 @@ export const AppProvider = ({ children }) => {
         document.cookie = 'token=; max-age=0; path=/';
     };
 
+    console.log(investorId)
+
   return (
     <AppContext.Provider
       value={{
@@ -258,7 +261,9 @@ export const AppProvider = ({ children }) => {
         verify,
         ver,
         setVer,
-        presentVerfId
+        presentVerfId,
+        publishId,
+        investorId
       }}
     >
       {children}

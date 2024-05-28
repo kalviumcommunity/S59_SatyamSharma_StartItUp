@@ -52,6 +52,9 @@ function RemDetails() {
               });
             if(response.ok)
             toast.success('Password and UserId Successfully Set');
+        else{
+            toast.info('UserId Already Taken');
+        }
         } catch (err) {
             toast.error('Some error occurred.');
         }
@@ -60,6 +63,7 @@ function RemDetails() {
 
     return (
         <section>
+            <ToastContainer/>
             <div className="flex flex-col items-center justify-center">
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-4 space-y-4 sm:p-8">

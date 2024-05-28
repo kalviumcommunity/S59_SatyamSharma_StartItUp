@@ -155,7 +155,6 @@ function RemDetails() {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </section>
     );
 }

@@ -64,7 +64,7 @@ function AboutPg() {
         </p>
 
         <p className='mb-4'>
-          <strong>Deployed Link:</strong> <a href='#' className='text-blue-500 underline'>Start-It-Up</a>
+          <strong>Deployed Link:</strong> <a href='https://start-it-up.netlify.app/' className='text-blue-500 underline'>Start-It-Up</a>
         </p>
 
         <p>

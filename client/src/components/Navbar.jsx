@@ -24,7 +24,7 @@ function Navebar() {
         <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>Contact Us</h3>
         <Link to='aboutUs'>
             <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>About</h3>
-            </Link>
+        </Link>
             {id?
             <Link to='/Logout'>
               <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>{nam}</h3>

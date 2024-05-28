@@ -22,7 +22,9 @@ function Navebar() {
         <div className='text-white flex items-center justify-between font-serif font-thin text-xs lg:text-xl lg:p-6 sm:text-xl sm:p-2 '>
 
         <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>Contact Us</h3>
+        <Link to='aboutUs'>
             <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>About</h3>
+        </Link>
             {id?
             <Link to='/Logout'>
               <h3 className='p-1 sm:p-2 hover:scale-110 transform transition font-itim '>{nam}</h3>

@@ -27,6 +27,7 @@ import { useAppContext } from './Appcontext';
 import LogoutPage from './Pages/Logout';
 import Chat from './components/Chat';
 import User from './Pages/User';
+import AboutPg from './Pages/AboutPg';
 
 function App() {
   const { token, id, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
@@ -40,6 +41,7 @@ function App() {
       <Routes>
        
         <Route path='/' element={<Home />} />
+        <Route path='aboutUs' element={<AboutPg />} />
         <Route path='verifiedUser' element={<VerifiedUser />} />
         <Route path='publishUser' element={<Publish />} />
         <Route path='streaming' element={<Streaming />} />

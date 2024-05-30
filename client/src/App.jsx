@@ -67,6 +67,7 @@ function App() {
         <Route path='publishUser/addOn' element={<AddOn />} />
         <Route path='publishUser/requestBox' element={<RequestBox />} />
         <Route path='publishUser/founderDetails' element={<FounderDetails />} />
+        <Route path='publishUser/instructions' element={<RequestBox />} />
         <Route path='register' element={<Register />} />
       </Routes>
       <Footer/>

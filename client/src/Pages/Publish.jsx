@@ -110,7 +110,9 @@ function Publish() {
       <div className= {`bg-gradient-to-r from-slate-900 to-slate-800 lg:h-3/4 h-5/6 lg:flex sm:top-20  lg:items-center z-20 left-0 top-10 p-2  lg:flex-col rounded-lg lg:m-5 lg:mt-20 ${isOpen?"fixed":"hidden"}  `}>
       <button  onClick={() => setIsOpen(!isOpen)}>{isOpen?<img src={cross} alt="close" className="transform transition w-8 rounded-md"/>:null}</button>
         <div className='flex h-full items-center flex-col '>
+        <Link to='instructions'>
         <button className='text-black bg-white p-2 font-itim  hover:scale-105 rounded m-2 sm:mt-6 w-32 mx-6'>Instructions</button>
+        </Link>
 		<Link to='founderDetails'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Founder Details</button>
 		</Link>

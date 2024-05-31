@@ -16,7 +16,7 @@ function VerifiedUser() {
   const [tagline, setTagline] = useState("");
   const [socialInsta, setSocialInsta] = useState("");
   const [socialLinked, setSocialLinked] = useState("");
-  const [showInstructions, setShowInstructions] = useState(false);
+  const [isInstructionsModalVisible, setShowInstructions] = useState(false);
 
   const uploadImg = async () => {
     if (!imageUpload) return;
@@ -96,7 +96,7 @@ function VerifiedUser() {
   };
 
   const handleShowInstructions = () => {
-    setShowInstructions(!showInstructions);
+    setShowInstructions(!isInstructionsModalVisible);
   };
 
   return (
@@ -110,7 +110,7 @@ function VerifiedUser() {
           Instructions
         </button>
       </div>
-      {showInstructions && (
+      {isInstructionsModalVisible && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
           <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
             <h2 className="text-xl font-bold mb-4">Instructions for Investors</h2>

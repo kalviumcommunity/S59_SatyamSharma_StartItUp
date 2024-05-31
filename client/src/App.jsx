@@ -29,6 +29,7 @@ import Chat from './components/Chat';
 import User from './Pages/User';
 import AboutPg from './Pages/AboutPg';
 import ContactUs from './Pages/ContactUs';
+import Instruction from './Pages/Instruction';
 
 function App() {
   const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
@@ -67,6 +68,7 @@ function App() {
         <Route path='publishUser/addOn' element={<AddOn />} />
         <Route path='publishUser/requestBox' element={<RequestBox />} />
         <Route path='publishUser/founderDetails' element={<FounderDetails />} />
+        <Route path='publishUser/instructions' element={<Instruction />} />
         <Route path='register' element={<Register />} />
       </Routes>
       <Footer/>

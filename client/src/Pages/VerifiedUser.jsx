@@ -16,6 +16,7 @@ function VerifiedUser() {
   const [tagline, setTagline] = useState("");
   const [socialInsta, setSocialInsta] = useState("");
   const [socialLinked, setSocialLinked] = useState("");
+  const [showInstructions, setShowInstructions] = useState(false);
 
   const uploadImg = async () => {
     if (!imageUpload) return;
@@ -94,16 +95,81 @@ function VerifiedUser() {
     }
   };
 
+  const handleShowInstructions = () => {
+    setShowInstructions(!showInstructions);
+  };
+
   return (
-    <div className='flex items-center min-[450px]:flex-row  flex-col justify-around'>
+    <div className='flex items-center min-[450px]:flex-row flex-col justify-around'>
       <ToastContainer />
-      <div className='p-1 sm:w-2/6 w-full pt-10 sm:pt-0'>
-        <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-7xl p-2 lg:text-9xl font-itim text-center min-[400px]:text-8xl  sm:text-6xl '>Start It Up</h1>
+      <div>
+        <button 
+          onClick={handleShowInstructions} 
+          className="inline-flex m-2 items-center lg:px-2 p-1 lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600"
+        >
+          Instructions
+        </button>
       </div>
-      <div className="min-h-screen sm:w-1/2 w-3/4 m-10   flex flex-col  sm:py-12 sm:justify-center">
+      {showInstructions && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <h2 className="text-xl font-bold mb-4">Instructions for Investors</h2>
+            <ol className="list-decimal pl-5 text-sm text-left">
+              <li>
+                <strong>ID Proof Submission</strong>
+                <ul className="list-disc pl-5">
+                  <li>Submission: Submit any of the accepted ID proofs in the provided format.</li>
+                  <li>Verification: Our team will verify the submitted ID proof against the details you have entered.</li>
+                  <li>Mismatch Consequence: If the ID proof does not match your entered details, your verified investor subscription will be terminated.</li>
+                </ul>
+              </li>
+              <li>
+                <strong>One-Time Subscription Fee</strong>
+                <ul className="list-disc pl-5">
+                  <li>Fee Amount: A one-time subscription fee of ₹50 is required to obtain the verified investor tag.</li>
+                  <li>Payment Requirement: You must pay this fee to access exclusive investor features.</li>
+                  <li>Exclusive Features:
+                    <ul className="list-disc pl-5">
+                      <li>Chat functionality on our site.</li>
+                      <li>Ability to create connections with other investors and startups.</li>
+                      <li>Option to add blog posts.</li>
+                      <li>Capability to invest in startups.</li>
+                      <li>Option to buy tokens of startups.</li>
+                      <li>Access to additional contact and financial details of startups.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <strong>Investment Risk</strong>
+                <ul className="list-disc pl-5">
+                  <li>Risk Acknowledgment: Investing in startups involves risks. You are responsible for making informed decisions based on your own assessment.</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Strike Policy</strong>
+                <ul className="list-disc pl-5">
+                  <li>Strike Limit: Accumulating more than 10 valid strikes will result in the termination of your subscription.</li>
+                  <li>Strike Definition: A strike is issued for violations of platform rules and guidelines.</li>
+                </ul>
+              </li>
+            </ol>
+            <button 
+              onClick={handleShowInstructions} 
+              className="mt-4 bg-blue-500 text-white rounded-md px-4 py-2"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+      <div className='p-1 sm:w-2/6 w-full pt-10 sm:pt-0'>
+        <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-7xl p-2 lg:text-9xl font-itim text-center min-[400px]:text-8xl sm:text-6xl'>Start It Up</h1>
+      </div>
+      <div className="min-h-screen sm:w-1/2 w-3/4 m-10 flex flex-col sm:py-12 sm:justify-center">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-700 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="relative px-4  bg-gradient-to-r from-slate-400 to-gray-600 shadow-lg sm:rounded-3xl sm:p-10">
+          <div className="relative px-4 bg-gradient-to-r from-slate-400 to-gray-600 shadow-lg sm:rounded-3xl sm:p-10">
             <div className="max-w-md mx-auto">
               <div>
                 <h1 className="font-semibold font-itim text-4xl">Investor Profile</h1>

@@ -100,56 +100,56 @@ function VerifiedUser() {
   };
 
   return (
-    <div className='flex items-center min-[450px]:flex-row flex-col justify-around'>
+    <div className='flex flex-col items-center min-[450px]:flex-row justify-around'>
       <ToastContainer />
       <div>
         <button 
           onClick={handleShowInstructions} 
-          className="inline-flex m-2 items-center lg:px-2 p-1 lg:py-1 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600"
+          className="inline-flex m-2 items-center lg:px-4 p-2 lg:py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600"
         >
           Instructions
         </button>
       </div>
       {isInstructionsModalVisible && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center">
+          <div className="relative top-20 mx-auto p-5 border w-11/12 sm:w-96 shadow-lg rounded-md bg-white">
             <h2 className="text-xl font-bold mb-4">Instructions for Investors</h2>
-            <ol className="list-decimal pl-5 text-sm text-left">
+            <ol className="list-decimal pl-5 text-sm text-left space-y-2">
               <li>
                 <strong>ID Proof Submission</strong>
-                <ul className="list-disc pl-5">
-                  <li>Submission: Submit any of the accepted ID proofs in the provided format.</li>
-                  <li>Verification: Our team will verify the submitted ID proof against the details you have entered.</li>
-                  <li>Mismatch Consequence: If the ID proof does not match your entered details, your verified investor subscription will be terminated.</li>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Submission: Submit any accepted ID proof in the specified format.</li>
+                  <li>Verification: Our team will verify the ID proof against your entered details.</li>
+                  <li>Mismatch Consequence: If the ID proof doesn't match, your verified investor subscription will be terminated.</li>
                 </ul>
               </li>
               <li>
                 <strong>One-Time Subscription Fee</strong>
-                <ul className="list-disc pl-5">
-                  <li>Fee Amount: A one-time subscription fee of ₹50 is required to obtain the verified investor tag.</li>
-                  <li>Payment Requirement: You must pay this fee to access exclusive investor features.</li>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Fee Amount: A one-time fee of ₹50 is required for the verified investor tag.</li>
+                  <li>Payment Requirement: Pay the fee to access exclusive investor features.</li>
                   <li>Exclusive Features:
                     <ul className="list-disc pl-5">
                       <li>Chat functionality on our site.</li>
-                      <li>Ability to create connections with other investors and startups.</li>
-                      <li>Option to add blog posts.</li>
-                      <li>Capability to invest in startups.</li>
-                      <li>Option to buy tokens of startups.</li>
-                      <li>Access to additional contact and financial details of startups.</li>
+                      <li>Connect with other investors and startups.</li>
+                      <li>Add blog posts.</li>
+                      <li>Invest in startups.</li>
+                      <li>Buy tokens of startups.</li>
+                      <li>Access additional contact and financial details of startups.</li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li>
                 <strong>Investment Risk</strong>
-                <ul className="list-disc pl-5">
-                  <li>Risk Acknowledgment: Investing in startups involves risks. You are responsible for making informed decisions based on your own assessment.</li>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Risk Acknowledgment: Investing in startups involves risks. Make informed decisions based on your assessment.</li>
                 </ul>
               </li>
               <li>
                 <strong>Strike Policy</strong>
-                <ul className="list-disc pl-5">
-                  <li>Strike Limit: Accumulating more than 10 valid strikes will result in the termination of your subscription.</li>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Strike Limit: Accumulating more than 10 valid strikes will result in subscription termination.</li>
                   <li>Strike Definition: A strike is issued for violations of platform rules and guidelines.</li>
                 </ul>
               </li>
@@ -178,40 +178,40 @@ function VerifiedUser() {
                 <form onSubmit={handleSubmit} className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <div className="relative">
                     <input onChange={(e) => setSelf(e.target.value)} value={self} autoComplete="off" id="self-description" name="self-description" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600" placeholder="Self Description" />
-                    <label htmlFor="self-description" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Self Description</label>
+                    <label htmlFor="self-description" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Self Description</label>
                   </div>
                   <div className="relative">
                     <input autoComplete="off" onChange={(e) => setSocialInsta(e.target.value)} value={socialInsta} id="Social Media Insta Account" name="Social Media Account" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Social Media Account" />
-                    <label htmlFor="Social Media Account" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Insta Account</label>
+                    <label htmlFor="Social Media Account" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Insta Account</label>
                   </div>
                   <div className="relative">
                     <input autoComplete="off" onChange={(e) => setSocialLinked(e.target.value)} value={socialLinked} id="Social Media LinkedIn Account" name="Social Media Account" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Social Media Account" />
-                    <label htmlFor="Social Media Account" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">LinkedIn Account</label>
+                    <label htmlFor="Social Media Account" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">LinkedIn Account</label>
                   </div>
                   <div className="relative">
                     <input autoComplete="off" onChange={(e) => setMobile(e.target.value)} value={mobile} id="Mobile" name="Mobile" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Mobile Number" />
-                    <label htmlFor="Mobile" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Mobile Number</label>
+                    <label htmlFor="Mobile" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Mobile Number</label>
                   </div>
                   <div className="relative">
                     <input autoComplete="off" onChange={(e) => setTagline(e.target.value)} value={tagline} id="tagline" name="tagline" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Tagline" />
-                    <label htmlFor="tagline" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Tagline</label>
+                    <label htmlFor="tagline" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Tagline</label>
                   </div>
                   <div className="relative">
-                    <button type='submit' className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
+                    <button type='submit' className="bg-blue-500 text-white rounded-md px-4 py-2">Submit</button>
                   </div>
                 </form>
-                <div className="relative">
-                  <input type="file" onChange={(e) => setImageUpload(e.target.files[0])} />
-                  <button onClick={uploadImg} className='bg-white text-black'>Upload Image</button>
+                <div className="relative mt-4">
+                  <input type="file" onChange={(e) => setImageUpload(e.target.files[0])} className="mb-2" />
+                  <button onClick={uploadImg} className='bg-gray-800 text-white rounded-md px-4 py-2'>Upload Image</button>
                 </div>
-                {imageList ? <img src={imageList} className='h-96 w-72' alt="Uploaded" /> : null}
+                {imageList && <img src={imageList} className='h-96 w-72 mt-4 object-cover' alt="Uploaded" />}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default VerifiedUser;

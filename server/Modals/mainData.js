@@ -1,10 +1,11 @@
 const { boolean } = require('joi');
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const mainData= new mongoose.Schema({
     uniqueId:{
-        type : String,
-    },
+        type: Schema.Types.ObjectId,
+        ref: 'User',     },
     userId:{
         type : String,  
     },

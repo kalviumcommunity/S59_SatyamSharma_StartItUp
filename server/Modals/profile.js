@@ -1,9 +1,12 @@
 const { boolean } = require('joi');
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
 
 const profileSchema= new mongoose.Schema({
     uniqueId:{
-        type : String    
+        type: Schema.Types.ObjectId,
+        ref: 'User',     
     },
     name:{
         type : String    

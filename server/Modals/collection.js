@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
 
 const collectionSchema= new mongoose.Schema({
     uniqueId:{
-        type : String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',         
         required : true
     },
     userName:{
@@ -21,7 +24,7 @@ const collectionSchema= new mongoose.Schema({
         type : String,
         required : true
     },
-    socialmedia1:{
+    socialmedia2:{
         type : String,
         required : true
     },

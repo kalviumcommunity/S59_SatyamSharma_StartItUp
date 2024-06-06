@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const feedbackSchema= new mongoose.Schema({
     uniqueId:{
-        type : String
-        },
+        type: Schema.Types.ObjectId,
+        ref: 'User',         },
     userName:{
         type : String
     },

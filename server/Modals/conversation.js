@@ -13,7 +13,7 @@ const conversationSchema= new mongoose.Schema({
         required : true
     },
     date:{
-        type : String,
+        type : Date,
         required : true
     },
     image:{
@@ -21,7 +21,7 @@ const conversationSchema= new mongoose.Schema({
         required : true
     },
     time:{
-        type : String,
+        type : Date,
         required : true
     },
     questionAsked:{

@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const founderSchema= new mongoose.Schema({
     uniqueId:{
         type: Schema.Types.ObjectId,
-        ref: 'User',         
+        ref: 'user',         
         required : true
     },
     userName:{

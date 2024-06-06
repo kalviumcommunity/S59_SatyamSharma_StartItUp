@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const contentSchema= new mongoose.Schema({
     uniqueId:{
         type: Schema.Types.ObjectId,
-        ref: 'User', 
+        ref: 'user' 
         },
     userName:{
         type : String,

@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const collectionSchema= new mongoose.Schema({
     uniqueId:{
         type: Schema.Types.ObjectId,
-        ref: 'User',         
+        ref: 'user',         
         required : true
     },
     userName:{

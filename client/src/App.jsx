@@ -30,6 +30,7 @@ import User from './Pages/User';
 import AboutPg from './Pages/AboutPg';
 import ContactUs from './Pages/ContactUs';
 import Instruction from './Pages/Instruction';
+import Conversation from './Pages/Conversation';
 
 function App() {
   const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
@@ -44,6 +45,7 @@ function App() {
        
         <Route path='/' element={<Home />} />
         <Route path='contactUs' element={<ContactUs />} />
+        <Route path='conversation' element={<Conversation />} />
         <Route path='aboutUs' element={<AboutPg />} />
         <Route path='verifiedUser' element={<VerifiedUser />} />
         <Route path='publishUser' element={<Publish />} />

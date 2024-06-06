@@ -11,6 +11,7 @@ const feedback=require('../Modals/feedback')
 const connectInv=require('../Modals/connectInves')
 const connectFoun=require('../Modals/connectFound')
 const collections=require('../Modals/collection')
+const conversation= require('../Modals/conversation')
 
 const {schemaChat} = require('../JoiSchemas/joiSchemaPublic')
 const {schemaVerify} = require('../JoiSchemas/joiSchemaVerify')
@@ -22,6 +23,7 @@ const {trendingSchema} = require('../JoiSchemas/joischemaTrending')
 const {userSchema} = require('../JoiSchemas/joischemaUser')
 const {founderSchema} = require('../JoiSchemas/joischemaconnectFounder')
 const {investSchema} = require('../JoiSchemas/joischemaconnectInvest')
+const {conversationSchema} = require('../JoiSchemas/joischemConversation')
 
 
 const jwt =require('jsonwebtoken')
@@ -77,6 +79,15 @@ async function updateDocument(Model, id, updateData, res) {
         next(error); 
     }
 }
+
+router.get('/conver', async (req, res, next) => {
+    try {
+        const data = await conversation.find();
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+});
 
 router.get('/contents', async (req, res, next) => {
     try {
@@ -164,6 +175,16 @@ router.get('/users', async (req, res, next) => {
     try {
         const data = await users.find();
         res.send(data);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post('/conversations',authToken, validateInput(conversationSchema), async (req, res, next) => {
+    try {
+        const newPost = new conversation(req.body);
+        const savedPost = await newPost.save();
+        res.status(201).json(savedPost);
     } catch (error) {
         next(error);
     }

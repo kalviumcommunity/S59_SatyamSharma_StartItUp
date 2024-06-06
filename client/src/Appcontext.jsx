@@ -63,7 +63,7 @@ export const AppProvider = ({ children }) => {
         const tok = tokenCode.split("=")[1];
         setToken(tok);
       }
-    }, fet);
+    }, [fet]);
   console.log(fet)
 
     let decodedToken;

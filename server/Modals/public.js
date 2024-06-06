@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const contentSchema= new mongoose.Schema({
     uniqueId:{
-        type : String,
-    },
+        type: Schema.Types.ObjectId,
+        ref: 'user' 
+        },
     userName:{
         type : String,
     },

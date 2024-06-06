@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const investSchema= new mongoose.Schema({
     uniqueId:{
-        type : String,
+        type: Schema.Types.ObjectId,
+        ref: 'user', 
         required : true
     },
     userName:{

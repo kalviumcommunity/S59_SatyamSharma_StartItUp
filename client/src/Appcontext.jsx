@@ -36,6 +36,8 @@ export const AppProvider = ({ children }) => {
   const[ver,setVer]=useState(true)
   const[presentVerfId,setPresentVerifId]=useState("")
 
+  const [conversationData, setConversationData] = useState([]);
+  const [con, setCon] = useState(false);
 
 
 
@@ -128,6 +130,32 @@ export const AppProvider = ({ children }) => {
     };
     fetchFeedbackData(); 
   }, [feed]);
+
+  
+  useEffect(() => {
+    const fetchConversationData = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/conver`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.ok) {
+                const converData = await response.json();
+                const filteredData = converData.filter(convo => convo.uniqueId === id);
+                setConversationData(filteredData);
+            } else {
+                toast.error("Failed to fetch conversation data");
+            }
+        } catch (err) {
+            toast.error("Failed to fetch conversation data");
+        }
+    };
+    if (id) {
+        fetchConversationData();
+    }
+}, [con, id]);
 
 
   useEffect(() => {
@@ -263,7 +291,10 @@ export const AppProvider = ({ children }) => {
         setVer,
         presentVerfId,
         publishId,
-        investorId
+        investorId,
+        conversationData,
+        con,
+        setCon
       }}
     >
       {children}

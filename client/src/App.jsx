@@ -33,10 +33,10 @@ import Instruction from './Pages/Instruction';
 import Conversation from './Pages/Conversation';
 
 function App() {
-  const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,presentVerfId,mainData,trendingPg,verify } = useAppContext();
+  const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,conversationData,presentVerfId,mainData,trendingPg,verify } = useAppContext();
 
  
-  console.log("This Is verif Id",presentVerfId,"this is verfiy data",verify, publishId, investorId)
+  console.log("This Is verif Id",presentVerfId, "evfdf",id,"this is verfiy data",verify, publishId, investorId,"this is conere",conversationData)
   
   return (
     <div className='bg-black'>

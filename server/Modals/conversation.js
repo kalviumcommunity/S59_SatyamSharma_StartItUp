@@ -16,12 +16,8 @@ const conversationSchema= new mongoose.Schema({
         type : Date,
         required : true
     },
-    image:{
-        type : String,
-        required : true
-    },
     time:{
-        type : Date,
+        type : String,
         required : true
     },
     questionAsked:{

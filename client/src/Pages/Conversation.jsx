@@ -24,7 +24,7 @@ function Conversation() {
             const currentTime = getCurrentTime();
             const answer = await getAnswer(question);
             setResults(answer);
-            // console.log(answer);
+            console.log(answer);
 
             const response = await fetch(`${import.meta.env.VITE_URL}/api/conversations`, {
                 method: 'POST',

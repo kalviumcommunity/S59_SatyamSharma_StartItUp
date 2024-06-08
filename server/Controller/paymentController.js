@@ -25,7 +25,6 @@ const checkout = async (req, res) => {
 };
 
 const paymentVerification = async (req, res) => {
-  console.log('Received request body:', req.body);
 
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -43,8 +42,6 @@ const paymentVerification = async (req, res) => {
     .createHmac('sha256', process.env.RAZORPAY_API_SECRET)
     .update(body.toString())
     .digest('hex');
-
-  console.log('Expected signature:', expectedSignature);
 
   const isAuthentic = expectedSignature === razorpay_signature;
 
@@ -69,7 +66,6 @@ const paymentVerification = async (req, res) => {
       });
     }
   } else {
-    console.error('Invalid signature:', expectedSignature, 'and', razorpay_signature);
     res.status(400).json({
       success: false,
       message: 'Invalid signature',

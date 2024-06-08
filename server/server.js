@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path =require('path')
 const session = require('express-session');
 const passport = require('passport');
 const { createServer } = require('http');
@@ -11,6 +12,13 @@ const { connectDB, disconnectDB } = require('./db');
 require('dotenv').config();
 
 const app = express();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// app.get("/test", async(req,res)=>{
+//   return res.render('paydetails')
+// })
 
 app.use(session({
   secret: process.env.SESSION_SECRET,

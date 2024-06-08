@@ -25,7 +25,6 @@ const checkout = async (req, res) => {
 };
 
 const paymentVerification = async (req, res) => {
-
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
   if (!razorpay_signature) {
@@ -37,7 +36,6 @@ const paymentVerification = async (req, res) => {
   }
 
   const body = razorpay_order_id + '|' + razorpay_payment_id;
-
   const expectedSignature = crypto
     .createHmac('sha256', process.env.RAZORPAY_API_SECRET)
     .update(body.toString())
@@ -47,15 +45,16 @@ const paymentVerification = async (req, res) => {
 
   if (isAuthentic) {
     try {
-      await Payment.create({
+      const payment = await Payment.create({
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
       });
 
-      res.status(200).json({
-        success: true,
-        message: 'Payment verified successfully',
+      res.render('paydetails', {
+        reference: payment._id,
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id
       });
     } catch (error) {
       console.error('Error saving payment:', error.message);
@@ -72,6 +71,7 @@ const paymentVerification = async (req, res) => {
     });
   }
 };
+
 
 module.exports = {
   checkout,

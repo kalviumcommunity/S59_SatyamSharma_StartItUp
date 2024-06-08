@@ -31,7 +31,6 @@ import AboutPg from './Pages/AboutPg';
 import ContactUs from './Pages/ContactUs';
 import Instruction from './Pages/Instruction';
 import Conversation from './Pages/Conversation';
-import PaymentSuccess from './Pages/PaymentSuccess';
 import Payment from './Pages/Payment';
 
 function App() {
@@ -47,7 +46,6 @@ function App() {
        
         <Route path='/' element={<Home />} />
         <Route path="/payment" element={<Payment/>} />
-        <Route path="/paymentsuccess" element={<PaymentSuccess/>} />
         <Route path='contactUs' element={<ContactUs />} />
         <Route path='conversation' element={<Conversation />} />
         <Route path='aboutUs' element={<AboutPg />} />

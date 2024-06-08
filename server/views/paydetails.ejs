@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+</head>
+
+<body style="background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex; justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;">
+
+    <div class="container" style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: center;">
+
+        <h1 id="heading" style="background-color: #007bff; color: white; padding: 10px; border-radius: 10px; font-size: 2rem;">
+            <b>Payment Successful</b>
+        </h1>
+        <p style="font-size: 1.2rem; margin: 10px 0; color: #333;">Reference Number: <%= reference %></p>
+        <p style="font-size: 1.2rem; margin: 10px 0; color: #333;">Order ID: <%= orderId %></p>
+        <p style="font-size: 1.2rem; margin: 10px 0; color: #333;">Payment ID: <%= paymentId %></p>
+        <h2 style="font-size: 1.5rem;">
+            <b>NOTE:-</b>
+            <span style="color: red;">Once you close this popup , then you can't get the details back. So it's better to copy if nessasry </span> </h2>
+        <button class="btn" onclick="window.location.href='/'" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.3s;">Go to Home</button>
+    </div>
+</body>
+</html>

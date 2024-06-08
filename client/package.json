@@ -12,6 +12,7 @@
   "dependencies": {
     "@langchain/google-genai": "^0.0.16",
     "@langchain/openai": "^0.1.1",
+    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.0",
     "install": "^0.13.0",

@@ -53,7 +53,11 @@ function Home() {
         </Link>
         <Link to='/conversation'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
-        </Link>
+        </Link> 
+        
+        <Link to='/payment'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
+        </Link> 
 
         {isOpen?
         <div className='bottom-5 absolute'>

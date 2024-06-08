@@ -1,14 +1,14 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./Routes/router');
-const { connectDB, disconnectDB } = require('./db');
-const Authroutes = require('./Routes/Authroutes');
-
-const passport = require("passport");
-const session = require("express-session");
-require('dotenv').config();
+const session = require('express-session');
+const passport = require('passport');
 const { createServer } = require('http');
 const { Server } = require('socket.io');
+const routes = require('./Routes/router');
+const Authroutes = require('./Routes/Authroutes');
+const PaymentRoutes = require('./Routes/paymentRoutes');
+const { connectDB, disconnectDB } = require('./db');
+require('dotenv').config();
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false } 
 }));
 
 app.use(passport.initialize());
@@ -27,6 +27,11 @@ app.use(express.json());
 
 app.use('/api', routes);
 app.use('/auth', Authroutes);
+app.use('/pay', PaymentRoutes);
+
+app.get("/pay/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+);
 
 const server = createServer(app);
 const io = new Server(server, {

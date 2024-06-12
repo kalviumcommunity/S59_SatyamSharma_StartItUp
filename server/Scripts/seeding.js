@@ -35,9 +35,9 @@ async function connectDB() {
 async function deleteAllDocuments(model) {
     try {
         await model.deleteMany({});
-        console.log(`All documents deleted from ${model.collection.collectionName}`);
+        console.log(`All documents are deleted from ${model.collection.collectionName}`);
     } catch (error) {
-        console.error(`Error deleting documents from ${model.collection.collectionName}:`, error);
+        console.error(`Error in deleting documents from ${model.collection.collectionName}:`, error);
     }
 }
 
@@ -64,7 +64,7 @@ async function main() {
     await connectDB();
     await deleteAllData();
     mongoose.disconnect();
-    console.log('Database disconnected');
+    console.log('Database is now disconnected');
 
 }
 

@@ -8,6 +8,8 @@ const { Server } = require('socket.io');
 const routes = require('./Routes/router');
 const Authroutes = require('./Routes/Authroutes');
 const PaymentRoutes = require('./Routes/paymentRoutes');
+const verifyInvestorRoutes = require('./Routes/verifyInvestorRoutes'); 
+
 const { connectDB, disconnectDB } = require('./db');
 require('dotenv').config();
 
@@ -16,9 +18,9 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// app.get("/test", async(req,res)=>{
-//   return res.render('paydetails')
-// })
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/investor', verifyInvestorRoutes);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,

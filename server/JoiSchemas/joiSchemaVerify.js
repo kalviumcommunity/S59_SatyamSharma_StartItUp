@@ -21,7 +21,8 @@ const schemaVerify = Joi.object({
     picture: Joi.string(),
     nam:Joi.string(),
     usersLiked:Joi.array().items(Joi.string()),
-    idProf: Joi.string()
+    idProf: Joi.string(),
+    verified: Joi.boolean()
 });
 
 const validatePostVerify = (data) => {

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
-const User = require('../Modals/user'); 
+const User = require('../Modals/user');
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
@@ -14,28 +14,30 @@ const transporter = nodemailer.createTransport({
   debug: true,
 });
 
+const sendEmailToUser = (user) => {
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: user.emailId,
+    subject: 'Check out what\'s new!',
+    html: `<p>Hello ${user.userName},</p>
+           <p>Something new is there, go and check it out!</p>
+           <p><a href="${process.env.CLIENT_URL}">Visit our site</a></p>`
+  };
+
+  return transporter.sendMail(mailOptions)
+    .then(info => {
+      console.log(`Email sent to ${user.emailId}:`, info.response);
+    })
+    .catch(error => {
+      console.error(`Error sending email to ${user.emailId}:`, error);
+    });
+};
+
 const sendEmailToAllUsers = async () => {
   try {
     const users = await User.find();
-
-    users.forEach(user => {
-      const mailOptions = {
-        from: process.env.EMAIL,
-        to: user.emailId,
-        subject: 'Check out what\'s new!',
-        html: `<p>Hello ${user.userName},</p>
-               <p>Something new is there, go and check it out!</p>
-               <p><a href="${process.env.CLIENT_URL}">Visit our site</a></p>`
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
-    });
+    const emailPromises = users.map(user => sendEmailToUser(user));
+    await Promise.allSettled(emailPromises);
   } catch (error) {
     console.error('Error retrieving users or sending emails:', error);
   }

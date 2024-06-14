@@ -9,6 +9,7 @@ const routes = require('./Routes/router');
 const Authroutes = require('./Routes/Authroutes');
 const PaymentRoutes = require('./Routes/paymentRoutes');
 const verifyInvestorRoutes = require('./Routes/verifyInvestorRoutes'); 
+const scheduleEmailJob = require('./Helper/scheduling')
 
 const { connectDB, disconnectDB } = require('./db');
 require('dotenv').config();
@@ -78,6 +79,7 @@ connectDB()
     server.listen(process.env.PORT, () => {
       console.log(`Server is running on port ${process.env.PORT}`);
     });
+    scheduleEmailJob();
   })
   .catch(err => {
     console.error("Error connecting to MongoDB:", err);

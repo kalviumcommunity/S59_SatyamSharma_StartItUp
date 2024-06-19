@@ -51,6 +51,10 @@ function Home() {
         <Link to='/Chat'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Chat</button>
         </Link>
+
+        {/* Below Commented functionalities are to be used somewhere else , these are added here just for trial purpose  */}
+
+
         {/* <Link to='/conversation'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
         </Link>  */}

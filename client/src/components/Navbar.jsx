@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Img from '../assets/startitup.png'
 import UserPhote from '../assets/user.png'
-import { DarkModeToggle } from "react-dark-mode-toggle-2";
 import { useAppContext } from '../Appcontext';
 
 function Navebar() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const { logout,nam,pic,id } = useAppContext();
 
   return (

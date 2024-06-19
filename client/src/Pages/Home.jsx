@@ -51,13 +51,13 @@ function Home() {
         <Link to='/Chat'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Chat</button>
         </Link>
-        <Link to='/conversation'>
+        {/* <Link to='/conversation'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
-        </Link> 
+        </Link>  */}
         
-        <Link to='/payment'>
+        {/* <Link to='/payment'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
-        </Link> 
+        </Link>  */}
 
         {isOpen?
         <div className='bottom-5 absolute'>

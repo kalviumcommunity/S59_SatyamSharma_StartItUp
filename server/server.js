@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const path =require('path')
+const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 const { createServer } = require('http');
@@ -8,10 +8,10 @@ const { Server } = require('socket.io');
 const routes = require('./Routes/router');
 const Authroutes = require('./Routes/Authroutes');
 const PaymentRoutes = require('./Routes/paymentRoutes');
-const verifyInvestorRoutes = require('./Routes/verifyInvestorRoutes'); 
-const scheduleEmailJob = require('./Helper/scheduling')
-
+const verifyInvestorRoutes = require('./Routes/verifyInvestorRoutes');
+const scheduleEmailJob = require('./Helper/scheduling');
 const { connectDB, disconnectDB } = require('./db');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const app = express();
@@ -21,21 +21,32 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/investor', verifyInvestorRoutes);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors());
-app.use(express.json());
 
+const weeklyRateLimiter = rateLimit({
+  windowMs: 7 * 24 * 60 * 60 * 1000, 
+  max: 1, 
+  message: 'You can only generate a discount coupon once per week.'
+});
+
+
+app.use((req, res, next) => {
+  req.userIdentifier = req.sessionID; 
+  next();
+});
+
+app.use('/api/investor', verifyInvestorRoutes);
 app.use('/api', routes);
 app.use('/auth', Authroutes);
 app.use('/pay', PaymentRoutes);
@@ -43,6 +54,12 @@ app.use('/pay', PaymentRoutes);
 app.get("/pay/getkey", (req, res) =>
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
 );
+
+app.get('/discount-coupon', weeklyRateLimiter, (req, res) => {
+  const couponCode = `DISCOUNT-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+  const discount = Math.floor(Math.random() * 50) + 1; 
+  res.status(200).json({ couponCode, discount: `${discount}%` });
+});
 
 const server = createServer(app);
 const io = new Server(server, {

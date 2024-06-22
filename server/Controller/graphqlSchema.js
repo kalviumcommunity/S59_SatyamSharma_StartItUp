@@ -63,6 +63,18 @@ const root = {
     }
 
     try {
+      const user = await User.findById(uniqueId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+    } catch (error) {
+      if (error.name === 'MongoNetworkError') {
+        throw new Error('Database connection error');
+      }
+      throw new Error(`An error occurred: ${error.message}`);
+    }
+
+    try {
       const newOffer = new Offer(offerData);
       const savedOffer = await newOffer.save();
       return {
@@ -80,5 +92,3 @@ const root = {
     }
   }
 };
-
-module.exports = { schema, root };

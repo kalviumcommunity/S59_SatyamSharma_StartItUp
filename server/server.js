@@ -13,6 +13,8 @@ const scheduleEmailJob = require('./Helper/scheduling');
 const { connectDB, disconnectDB } = require('./db');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
+const { graphqlHTTP } = require('express-graphql');
+const { schema, root } = require('./Controller/graphqlSchema');
 
 const app = express();
 
@@ -35,14 +37,13 @@ app.use(passport.session());
 app.use(cors());
 
 const weeklyRateLimiter = rateLimit({
-  windowMs: 7 * 24 * 60 * 60 * 1000, 
-  max: 1, 
+  windowMs: 7 * 24 * 60 * 60 * 1000,
+  max: 1,
   message: 'You can only generate a discount coupon once per week.'
 });
 
-
 app.use((req, res, next) => {
-  req.userIdentifier = req.sessionID; 
+  req.userIdentifier = req.sessionID;
   next();
 });
 
@@ -57,9 +58,16 @@ app.get("/pay/getkey", (req, res) =>
 
 app.get('/discount-coupon', weeklyRateLimiter, (req, res) => {
   const couponCode = `DISCOUNT-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-  const discount = Math.floor(Math.random() * 50) + 1; 
+  const discount = Math.floor(Math.random() * 50) + 1;
   res.status(200).json({ couponCode, discount: `${discount}%` });
 });
+
+// GraphQL endpoint
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true, // Enables the GraphiQL interface
+}));
 
 const server = createServer(app);
 const io = new Server(server, {

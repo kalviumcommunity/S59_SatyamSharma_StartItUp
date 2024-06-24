@@ -25,11 +25,11 @@ function Conversation() {
             const answer = await getAnswer(question);
             setResults(answer);
 
-            const response = await fetch(${import.meta.env.VITE_URL}/api/conversations, {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/conversations`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': Bearer ${token},
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     uniqueId: id,

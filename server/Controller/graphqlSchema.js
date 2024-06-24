@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const User = require('../Modals/user');
 const Offer = require('../Modals/offers');
 const offerValidationSchema = require('../JoiSchemas/offerValidation');
-const { PubSub } = require('graphql-subscriptions'); 
+const { PubSub } = require('graphql-subscriptions');
 
 const pubsub = new PubSub();
 
@@ -41,47 +41,39 @@ const root = {
   hello: () => 'Hello, world!',
   randomNumber: () => Math.random(),
   getUser: async ({ id }) => {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new Error('Invalid user ID format');
-    }
-
     try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error('Invalid user ID format');
+      }
+
       const user = await User.findById(id);
       if (!user) {
         throw new Error('User not found');
       }
+
       return {
         id: user._id,
         name: user.userName,
         emailId: user.emailId
       };
     } catch (error) {
-      if (error.name === 'MongoNetworkError') {
-        throw new Error('Database connection error');
-      }
-      throw new Error(`An error occurred: ${error.message}`);
+      throw new Error(`Failed to fetch user: ${error.message}`);
     }
   },
   createOffer: async ({ uniqueId, userName, discount, emailId }) => {
     const offerData = { uniqueId, userName, discount, emailId };
-    const { error } = offerValidationSchema.validate(offerData);
-    if (error) {
-      throw new Error(`Validation error: ${error.details[0].message}`);
-    }
 
     try {
+      const { error } = offerValidationSchema.validate(offerData);
+      if (error) {
+        throw new Error(`Validation error: ${error.details[0].message}`);
+      }
+
       const user = await User.findById(uniqueId);
       if (!user) {
         throw new Error('User not found');
       }
-    } catch (error) {
-      if (error.name === 'MongoNetworkError') {
-        throw new Error('Database connection error');
-      }
-      throw new Error(`An error occurred: ${error.message}`);
-    }
 
-    try {
       const newOffer = new Offer(offerData);
       const savedOffer = await newOffer.save();
 
@@ -95,10 +87,7 @@ const root = {
         emailId: savedOffer.emailId
       };
     } catch (error) {
-      if (error.name === 'MongoNetworkError') {
-        throw new Error('Database connection error');
-      }
-      throw new Error(`An error occurred: ${error.message}`);
+      throw new Error(`Failed to create offer: ${error.message}`);
     }
   }
 };

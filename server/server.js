@@ -14,7 +14,9 @@ const { connectDB, disconnectDB } = require('./db');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 const { graphqlHTTP } = require('express-graphql');
-const { schema, root } = require('./Controller/graphqlSchema');
+const { schema, root, pubsub } = require('./Controller/graphqlSchema');
+const { execute, subscribe } = require('graphql');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
 
 const app = express();
 
@@ -99,6 +101,11 @@ io.on("connection", (socket) => {
   });
 });
 
+const subscriptionServer = SubscriptionServer.create(
+  { execute, subscribe, schema },
+  { server, path: '/graphql' }
+);
+
 connectDB()
   .then(() => {
     server.listen(process.env.PORT, () => {
@@ -114,5 +121,6 @@ connectDB()
 process.on('SIGINT', async () => {
   console.log("Shutting down server...");
   await disconnectDB();
+  subscriptionServer.close();
   process.exit(0);
 });

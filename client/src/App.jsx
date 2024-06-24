@@ -32,6 +32,8 @@ import ContactUs from './Pages/ContactUs';
 import Instruction from './Pages/Instruction';
 import Conversation from './Pages/Conversation';
 import Payment from './Pages/Payment';
+import SubscriptionExample from './Pages/Subscription';
+
 
 function App() {
   const { token, id,investorId,publishId, nam, email, pic, userId, password,presentDataId,conversationData,presentVerfId,mainData,trendingPg,verify } = useAppContext();
@@ -46,6 +48,7 @@ function App() {
        
         <Route path='/' element={<Home />} />
         <Route path="/payment" element={<Payment/>} />
+        <Route path="/sub" element={<SubscriptionExample/>} />
         <Route path='contactUs' element={<ContactUs />} />
         <Route path='conversation' element={<Conversation />} />
         <Route path='aboutUs' element={<AboutPg />} />

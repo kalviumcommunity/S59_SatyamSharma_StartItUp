@@ -1,8 +1,11 @@
 const { buildSchema } = require('graphql');
 const mongoose = require('mongoose');
-const User = require('../Modals/user'); 
-const Offer = require('../Modals/offers'); 
+const User = require('../Modals/user');
+const Offer = require('../Modals/offers');
 const offerValidationSchema = require('../JoiSchemas/offerValidation');
+const { PubSub } = require('graphql-subscriptions'); 
+
+const pubsub = new PubSub();
 
 const schema = buildSchema(`
   type Query {
@@ -13,6 +16,10 @@ const schema = buildSchema(`
 
   type Mutation {
     createOffer(uniqueId: ID!, userName: String!, discount: String!, emailId: String!): Offer
+  }
+
+  type Subscription {
+    offerCreated: Offer
   }
 
   type User {
@@ -77,6 +84,9 @@ const root = {
     try {
       const newOffer = new Offer(offerData);
       const savedOffer = await newOffer.save();
+
+      pubsub.publish('offerCreated', { offerCreated: savedOffer });
+
       return {
         id: savedOffer._id,
         uniqueId: savedOffer.uniqueId,
@@ -93,4 +103,4 @@ const root = {
   }
 };
 
-module.exports={root,schema}
+module.exports = { schema, root, pubsub };

@@ -63,6 +63,10 @@ function Home() {
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
         </Link>  */}
 
+        <Link to='/sub'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>sub</button>
+        </Link> 
+
         {isOpen?
         <div className='bottom-5 absolute'>
         <Link to='/report'>

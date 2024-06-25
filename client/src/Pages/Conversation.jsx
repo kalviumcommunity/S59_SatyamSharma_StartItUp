@@ -18,8 +18,8 @@ function Conversation() {
     };
 
     const formatText = (text) => {
-        const boldRegex = /\\(.?)\\*/g;
-        const bulletRegex = /^\(.)$/gm;
+        const boldRegex = /\\(.+?)\\*/g;
+        const bulletRegex = /^- (.+)$/gm;
 
         let formattedText = text.replace(boldRegex, (match, p1) => `<strong>${p1}</strong>`);
         const lines = formattedText.split('\n');

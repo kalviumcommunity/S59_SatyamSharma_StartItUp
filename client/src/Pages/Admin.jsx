@@ -4,11 +4,13 @@ import { useAppContext } from '../Appcontext';
 import Img from '../assets/user.png';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { FadeLoader } from 'react-spinners';
 
 function Admin() {
   const { token, setFeed, feed, feedback } = useAppContext();
   const [heading, setHeading] = useState("");
   const [context, setContext] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   const handleHead = (e) => {
     setHeading(e.target.value);
@@ -20,12 +22,14 @@ function Admin() {
 
   const handleSubmit = async (e, feedbackId) => {
     e.preventDefault();
+    setLoading(true); 
+
     try {
       const response = await fetch(`${import.meta.env.VITE_URL}/api/feedbacks/${feedbackId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': Bearer `${token}`,
         },
         body: JSON.stringify({
           status: "Done",
@@ -34,19 +38,21 @@ function Admin() {
         }),
       });
       if (response.ok) {
-        toast.success(`Sent Response`);
+        toast.success(Sent `Response`);
       } else {
         toast.info('Login to Send Feedback');
       }
     } catch (error) {
       toast.error("Error", error);
+    } finally {
+      setLoading(false); 
+      setFeed(!feed);
     }
-    setFeed(!feed);
   };
 
   return (
     <div>
-      <div className="lg:mt-28 mt-8 flex justify-center  items-center flex-col">
+      <div className="lg:mt-28 mt-8 flex justify-center items-center flex-col">
         <ToastContainer />
         <div className='w-full justify-start items-start'>
           <Link to='/'>
@@ -129,6 +135,11 @@ function Admin() {
           })}
         </div>
       </div>
+      {loading && (
+        <div className="loader-overlay">
+          <FadeLoader color="#00BFFF" loading={true} height={15} radius={2} margin={4} />
+        </div>
+      )}
     </div>
   )
 }

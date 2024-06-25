@@ -1,40 +1,44 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../Appcontext';
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { FadeLoader } from 'react-spinners';
 
 function Feedback(props) {
-  const { nam, id,token,setFeed,feed,pic } = useAppContext();
-    const[heading,setheading]=useState("");
-    const[context,setContext]=useState("");
+  const { nam, id, token, setFeed, feed, pic } = useAppContext();
+  const [heading, setHeading] = useState("");
+  const [context, setContext] = useState("");
+  const [loading, setLoading] = useState(false); 
 
-    const handleHead=(e)=>{
-        setheading(e.target.value);
-    }
+  const handleHead = (e) => {
+    setHeading(e.target.value);
+  }
 
-    const handleContext=(e)=>{
-        setContext(e.target.value);
-    }
+  const handleContext = (e) => {
+    setContext(e.target.value);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
+
     try {
-    const currentDate = new Date().toISOString().slice(0, 10);
+      const currentDate = new Date().toISOString().slice(0, 10);
       const response = await fetch(`${import.meta.env.VITE_URL}/api/feedbacks`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, 
-          },
+          'Content-Type': 'application/json',
+          'Authorization': Bearer `${token}`,
+        },
         body: JSON.stringify({
-            uniqueId: id,
-            userName: nam,
-            heading: heading,
-            content: context,
-            type: props.nam,
-            date: currentDate,
-            status: "Pending",
-            pic:pic
+          uniqueId: id,
+          userName: nam,
+          heading: heading,
+          content: context,
+          type: props.nam,
+          date: currentDate,
+          status: "Pending",
+          pic: pic
         }),
       });
       if (response.ok) {
@@ -43,16 +47,23 @@ function Feedback(props) {
         toast.info('Login to Send Feedback');
       }
     } catch (error) {
-      toast.error("Error",error);
+      toast.error("Error", error);
+    } finally {
+      setLoading(false); 
+      setFeed(!feed);
     }
-    setFeed(!feed)
   };
 
   return (
-    <div className='flex items-center min-[450px]:flex-row flex-col justify-around'>
-        <ToastContainer />
+    <div className={`flex items-center min-[450px] flex-col justify-around ${loading ? 'blur' : ''}`}>
+      <ToastContainer />
+      {loading && (
+        <div className="loader-overlay">
+          <FadeLoader color="#00BFFF" loading={true} height={15} radius={2} margin={4} />
+        </div>
+      )}
       <div className='p-1 sm:w-2/6 w-full pt-10 sm:pt-0'>
-        <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-5xl pt-8 p-2 lg:text-7xl xl:text-8xl font-itim text-center min-[400px]:text-7xl  sm:text-6xl '>Your {props.nam} Will Be Marked</h1>
+        <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-5xl pt-8 p-2 lg:text-7xl xl:text-8xl font-itim text-center min-[400px] sm:text-6xl '>Your {props.nam} Will Be Marked</h1>
       </div>
       <div className="min-h-screen sm:w-1/2 w-3/4 m-10 flex flex-col sm:py-12 sm:justify-center">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -69,7 +80,7 @@ function Feedback(props) {
                     onChange={handleHead}
                     required
                     placeholder='Heading'
-                    name="heading" 
+                    name="heading"
                     type='text'
                     className="peer rounded-2xl text-center placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
                   />

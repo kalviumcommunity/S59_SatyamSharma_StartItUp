@@ -3,12 +3,14 @@ import { getAnswer } from '../Langchain';
 import { useAppContext } from '../Appcontext';
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { FadeLoader } from 'react-spinners';
 
 function Conversation() {
     const { id, nam, con, setCon, conversationData, token } = useAppContext();
     const [question, setQuestion] = useState("");
     const [currentConversation, setCurrentConversation] = useState(null);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false); 
 
     const getCurrentTime = () => {
         const now = new Date();
@@ -19,7 +21,7 @@ function Conversation() {
         const boldRegex = /\\(.?)\\*/g;
         const bulletRegex = /^\(.)$/gm;
 
-        let formattedText = text.replace(boldRegex, (match, p1) => <strong>${p1}</strong>);
+        let formattedText = text.replace(boldRegex, (match, p1) => <strong>`${p1}`</strong>);
         const lines = formattedText.split('\n');
         const formattedLines = lines.map((line, index) => {
             if (bulletRegex.test(line)) {
@@ -35,7 +37,8 @@ function Conversation() {
     const handlesubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setCurrentConversation(null); // Clear the current conversation to show only the new response
+        setCurrentConversation(null); 
+        setLoading(true); 
 
         try {
             const currentDate = new Date().toISOString().slice(0, 10);
@@ -53,11 +56,11 @@ function Conversation() {
 
             setCurrentConversation(newConversation);
 
-            const response = await fetch(${import.meta.env.VITE_URL}/api/conversations, {
+            const response = await fetch(`${import.meta.env.VITE_URL}/api/conversations`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': Bearer ${token},
+                    'Authorization': Bearer `${token}`,
                 },
                 body: JSON.stringify(newConversation),
             });
@@ -70,13 +73,16 @@ function Conversation() {
         } catch (error) {
             toast.error("Error", error.message);
             setError("An error occurred while fetching the answer. Please try again.");
+        } finally {
+            setLoading(false); 
+            setCon(!con);
         }
-        setCon(!con);
     };
 
     return (
-        <div className='flex pb-10 pt-20 h-screen'>
+        <div className='flex pb-10 pt-20 h-screen relative'>
             <ToastContainer />
+            {loading && <div className="absolute inset-0 bg-gray-300 opacity-70 blur"></div>}
             <aside className='w-64 bg-gray-800 text-white p-4 overflow-y-auto'>
                 <h2 className='text-xl font-bold mb-4'>Chat History</h2>
                 <div className='space-y-2'>
@@ -131,6 +137,11 @@ function Conversation() {
                     </form>
                 </div>
             </div>
+            {loading && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <FadeLoader color="#00BFFF" loading={true} height={15} radius={2} margin={4} />
+                </div>
+            )}
         </div>
     );
 }

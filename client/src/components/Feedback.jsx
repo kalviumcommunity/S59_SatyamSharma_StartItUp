@@ -28,7 +28,7 @@ function Feedback(props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': Bearer `${token}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           uniqueId: id,
@@ -47,7 +47,7 @@ function Feedback(props) {
         toast.info('Login to Send Feedback');
       }
     } catch (error) {
-      toast.error("Error", error);
+      toast.error(`Error: ${error.message}`);
     } finally {
       setLoading(false); 
       setFeed(!feed);

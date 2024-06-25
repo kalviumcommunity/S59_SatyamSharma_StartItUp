@@ -21,7 +21,7 @@ function Conversation() {
         const boldRegex = /\\(.?)\\*/g;
         const bulletRegex = /^\(.)$/gm;
 
-        let formattedText = text.replace(boldRegex, (match, p1) => <strong>`${p1}`</strong>);
+        let formattedText = text.replace(boldRegex, (match, p1) => `<strong>${p1}</strong>`);
         const lines = formattedText.split('\n');
         const formattedLines = lines.map((line, index) => {
             if (bulletRegex.test(line)) {
@@ -60,7 +60,7 @@ function Conversation() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': Bearer `${token}`,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(newConversation),
             });
@@ -71,7 +71,7 @@ function Conversation() {
                 toast.info('Login to Post Content');
             }
         } catch (error) {
-            toast.error("Error", error.message);
+            toast.error(`Error: ${error.message}`);
             setError("An error occurred while fetching the answer. Please try again.");
         } finally {
             setLoading(false); 

@@ -29,7 +29,7 @@ function Admin() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': Bearer `${token}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           status: "Done",
@@ -38,12 +38,12 @@ function Admin() {
         }),
       });
       if (response.ok) {
-        toast.success(Sent `Response`);
+        toast.success(`Sent Response`);
       } else {
         toast.info('Login to Send Feedback');
       }
     } catch (error) {
-      toast.error("Error", error);
+      toast.error(`Error: ${error.message}`);
     } finally {
       setLoading(false); 
       setFeed(!feed);

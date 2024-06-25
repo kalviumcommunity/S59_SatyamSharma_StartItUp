@@ -55,17 +55,17 @@ function Home() {
         {/* Below Commented functionalities are to be used somewhere else , these are added here just for trial purpose  */}
 
 
-        {/* <Link to='/conversation'>
+        <Link to='/conversation'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
-        </Link>  */}
-        
-        {/* <Link to='/payment'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
-        </Link>  */}
-
-        <Link to='/sub'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>sub</button>
         </Link> 
+        
+        <Link to='/payment'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
+        </Link> 
+
+        {/* <Link to='/sub'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>sub</button>
+        </Link>  */}
 
         {isOpen?
         <div className='bottom-5 absolute'>

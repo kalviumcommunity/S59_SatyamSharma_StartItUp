@@ -17,6 +17,8 @@ const { graphqlHTTP } = require('express-graphql');
 const { schema, root, pubsub } = require('./Controller/graphqlSchema');
 const { execute, subscribe } = require('graphql');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
+const RedisStore = require('connect-redis').default;
+const redisClient = require('./Helper/redisClient');
 
 const app = express();
 
@@ -27,6 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
+  store: new RedisStore({ client: redisClient }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
@@ -40,7 +43,7 @@ app.use(cors());
 
 const weeklyRateLimiter = rateLimit({
   windowMs: 7 * 24 * 60 * 60 * 1000,
-  max: 1,
+  max: 5,
   message: 'You can only generate a discount coupon once per week.'
 });
 
@@ -48,6 +51,22 @@ app.use((req, res, next) => {
   req.userIdentifier = req.sessionID;
   next();
 });
+
+const cache = (req, res, next) => {
+  const key = `__express__${req.originalUrl}` || req.url;
+  redisClient.get(key, (err, reply) => {
+    if (reply) {
+      res.send(JSON.parse(reply));
+    } else {
+      res.sendResponse = res.send;
+      res.send = (body) => {
+        redisClient.setex(key, 3600, JSON.stringify(body)); 
+        res.sendResponse(body);
+      };
+      next();
+    }
+  });
+};
 
 app.use('/api/investor', verifyInvestorRoutes);
 app.use('/api', routes);
@@ -58,7 +77,7 @@ app.get("/pay/getkey", (req, res) =>
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
 );
 
-app.get('/discount-coupon', weeklyRateLimiter, (req, res) => {
+app.get('/discount-coupon', weeklyRateLimiter, cache, (req, res) => {
   const couponCode = `DISCOUNT-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   const discount = Math.floor(Math.random() * 50) + 1;
   res.status(200).json({ couponCode, discount: `${discount}%` });
@@ -122,5 +141,6 @@ process.on('SIGINT', async () => {
   console.log("Shutting down server...");
   await disconnectDB();
   subscriptionServer.close();
+  redisClient.quit();
   process.exit(0);
 });

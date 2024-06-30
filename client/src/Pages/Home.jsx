@@ -59,8 +59,11 @@ function Home() {
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
         </Link> 
         
-        <Link to='/payment'>
+        {/* <Link to='/payment'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
+        </Link>  */}
+        <Link to='/auto'>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>auto</button>
         </Link> 
 
         {/* <Link to='/sub'>

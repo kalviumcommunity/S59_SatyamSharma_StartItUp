@@ -33,6 +33,7 @@ import Instruction from './Pages/Instruction';
 import Conversation from './Pages/Conversation';
 import Payment from './Pages/Payment';
 import SubscriptionExample from './Pages/Subscription';
+import Autocomplete from './Pages/Autocomplete';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
        
         <Route path='/' element={<Home />} />
         <Route path="/payment" element={<Payment/>} />
+        <Route path="/auto" element={<Autocomplete/>} />
         <Route path="/sub" element={<SubscriptionExample/>} />
         <Route path='contactUs' element={<ContactUs />} />
         <Route path='conversation' element={<Conversation />} />

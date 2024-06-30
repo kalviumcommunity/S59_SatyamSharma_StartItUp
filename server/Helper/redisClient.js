@@ -1,10 +1,8 @@
-const redis = require('redis');
+const { createClient } = require('redis');
 require('dotenv').config();
 
-
-const redisClient = redis.createClient({
-  url: process.env.REDIS_KEY, 
-  legacyMode: true,
+const redisClient = createClient({
+  url: process.env.REDIS_URL, 
 });
 
 redisClient.on('error', (err) => {

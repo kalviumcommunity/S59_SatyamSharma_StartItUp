@@ -19,6 +19,7 @@ const { execute, subscribe } = require('graphql');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
 const RedisStore = require('connect-redis').default;
 const redisClient = require('./Helper/redisClient');
+const axios = require('axios');
 
 const app = express();
 
@@ -89,6 +90,26 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true, // Enables the GraphiQL interface
 }));
+
+app.post('/api/autocomplete', async (req, res) => {
+  const { prompt } = req.body;
+
+  try {
+    const response = await axios.post('https://api-inference.huggingface.co/models/gpt2', {
+      inputs: prompt,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${process.env.HUGGING_FACE_API_KEY}`,
+        'Content-Type': 'application/json',
+      }
+    });
+
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error in generating autocomplete.');
+  }
+});
 
 const server = createServer(app);
 const io = new Server(server, {

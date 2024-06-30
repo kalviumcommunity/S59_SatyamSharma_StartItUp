@@ -123,6 +123,9 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log("User Connected", socket.id);
 
+  // Emit updated list of socket IDs to all clients
+  io.emit("userList", Array.from(io.sockets.sockets.keys()));
+
   socket.on("message", ({ message, room }) => {
     console.log(message);
     if (room && io.sockets.adapter.rooms.has(room)) {
@@ -138,6 +141,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
+    io.emit("userList", Array.from(io.sockets.sockets.keys()));
   });
 });
 

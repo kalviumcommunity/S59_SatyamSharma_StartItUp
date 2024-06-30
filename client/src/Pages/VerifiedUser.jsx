@@ -103,12 +103,12 @@ function VerifiedUser() {
     <div className='flex flex-col items-center min-[450px]:flex-row justify-around'>
       <ToastContainer />
       <div>
-        <button 
+        {/* <button 
           onClick={handleShowInstructions} 
           className="inline-flex m-2 items-center lg:px-4 p-2 lg:py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600"
         >
           Instructions
-        </button>
+        </button> */}
       </div>
       {isInstructionsModalVisible && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center">

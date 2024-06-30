@@ -62,10 +62,10 @@ function Feedback(props) {
           <FadeLoader color="#00BFFF" loading={true} height={15} radius={2} margin={4} />
         </div>
       )}
-      <div className='p-1 sm:w-2/6 w-full pt-10 sm:pt-0'>
+      <div className='p-1 sm:w-2/6 w-1/2 pt-10 sm:pt-0'>
         <h1 className='text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-5xl pt-8 p-2 lg:text-7xl xl:text-8xl font-itim text-center min-[400px] sm:text-6xl '>Your {props.nam} Will Be Marked</h1>
       </div>
-      <div className="min-h-screen sm:w-1/2 w-3/4 m-10 flex flex-col sm:py-12 sm:justify-center">
+      <div className="min-h-screen sm:w-1/2 w-1/2 m-10 flex flex-col sm:py-12 sm:justify-center">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-sky-700 rounded-2xl shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 transition-all duration-300 hover:-rotate-12 sm:rounded-3xl"></div>
           <div className="relative px-4 bg-gradient-to-r from-slate-400 to-gray-600 rounded-2xl shadow-lg sm:rounded-3xl sm:p-10">

@@ -24,7 +24,7 @@ function Feedback(props) {
 
     try {
       const currentDate = new Date().toISOString().slice(0, 10);
-      const response = await fetch(`${import.meta.env.VITE_URL}/api/feedbacks`, {
+      const response = await fetch("https://s59-satyamsharma-startitup-1.onrender.com/api/feedbacks", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

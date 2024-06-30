@@ -32,12 +32,12 @@ function Home() {
         <Link to='/trending'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Trending</button>
         </Link>
-        <Link to='/Connect'>
+        {/* <Link to='/Connect'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Connect</button>
-        </Link>
+        </Link> */}
         
         <Link to='/collection'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Collections</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Investor</button>
         </Link>
 
         <Link to='/public'>
@@ -56,15 +56,15 @@ function Home() {
 
 
         <Link to='/conversation'>
-        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>conversation</button>
+        <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>Conversation</button>
         </Link> 
         
         {/* <Link to='/payment'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>pay</button>
         </Link>  */}
-        <Link to='/auto'>
+        {/* <Link to='/auto'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>auto</button>
-        </Link> 
+        </Link>  */}
 
         {/* <Link to='/sub'>
         <button className='text-black bg-white p-2 font-itim hover:scale-105  rounded m-2 w-32 mx-6'>sub</button>

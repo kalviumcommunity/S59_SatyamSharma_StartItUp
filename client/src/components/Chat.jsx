@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 function Chat() {
   const socket = useMemo(() => io(import.meta.env.VITE_URL), []);
- 
+
   const [message, setMessage] = useState("");
   const [room, setRoom] = useState("");
   const [socketId, setSocketId] = useState("");
@@ -44,33 +44,60 @@ function Chat() {
   }, []);
 
   return (
-    <div className='flex-col justify-center my-36 items-center flex'>
-      <div className='bg-blue-700 text-white rounded-xl w-1/2 h-4/5'>
-        <h1 className='text-white text-4xl font-itim my-5'>Chat With Us</h1>
-        <h1 className='text-white font-bold'>Present Socket Id: {socketId}</h1>
-        <h1 className='my-2'>Room Name</h1>
-        <form onSubmit={joinRoom} className='flex justify-center'>
-          <textarea className='rounded text-black' value={roomName} placeholder='New room' onChange={e => setRoomName(e.target.value)}></textarea>
-          <button className='bg-black p-1 rounded' type='submit'>Create</button>
+    <div className='flex flex-col justify-center items-center pt-16 h-screen bg-gray-800 text-white'>
+      <div className='bg-gray-900 text-gray-200 rounded-xl w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 h-5/6 md:h-4/5 p-4 shadow-lg'>
+        <h1 className='text-blue-400 text-4xl font-bold mb-6 text-center'>Chat With Us</h1>
+        <button className='bg-red-600 text-white p-2 rounded-md'>Test Mode</button>
+        <div className='mb-4'>
+          <h2 className='text-xl font-semibold mb-2'>Present Socket ID:</h2>
+          <p className='text-lg font-medium'>{socketId}</p>
+        </div>
+        <form onSubmit={joinRoom} className='flex items-center mb-6'>
+          <input 
+            type='text' 
+            value={roomName} 
+            onChange={e => setRoomName(e.target.value)} 
+            placeholder='Enter room name' 
+            className='rounded-l-lg p-2 w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          />
+          <button 
+            type='submit' 
+            className='bg-blue-700 text-white rounded-r-lg px-4 py-2 ml-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          >
+            Create
+          </button>
         </form>
 
-        <form onSubmit={handleSubmit} className='flex justify-center flex-col items-center'>
-          <h1 className='my-5'>Message</h1>
-          <textarea className='rounded text-black' value={message} placeholder='Message' onChange={e => setMessage(e.target.value)}></textarea>
-          <br/>
-          <h1>Room</h1>
-          <br/>
-          <textarea value={room} className='rounded text-black' placeholder='Room' onChange={e => setRoom(e.target.value)}></textarea>
-          <button className='bg-black m-2 p-1 rounded' type='submit'>Submit</button>
+        <form onSubmit={handleSubmit} className='flex flex-col mb-6'>
+          <textarea 
+            value={message} 
+            onChange={e => setMessage(e.target.value)} 
+            placeholder='Enter your message' 
+            className='rounded-lg p-2 mb-2 w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          />
+          <input 
+            type='text' 
+            value={room} 
+            onChange={e => setRoom(e.target.value)} 
+            placeholder='Enter room name' 
+            className='rounded-lg p-2 mb-2 w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          />
+          <button 
+            type='submit' 
+            className='bg-blue-700 text-white rounded-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
+          >
+            Submit
+          </button>
         </form>
-      </div>
-      <div className='flex flex-col justify-center items-center'>
-        <h1 className='text-white bg-slate-600 p-1 m-2 rounded'>Messages</h1>
-        {chatHistory.map((msg, i) => (
-          <div className='text-black bg-white p-1 m-2 rounded font-itim' key={i}>
-            {msg}
-          </div>
-        ))}
+
+        <div className='flex flex-col items-start space-y-4 h-4/5 overflow-y-auto'>
+          <h2 className='text-xl font-semibold text-blue-400 mb-2'>Messages</h2>
+          {chatHistory.map((msg, i) => (
+            <div key={i} className='bg-gray-700 text-gray-200 p-2 rounded-lg self-start'>
+              <p>{msg}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

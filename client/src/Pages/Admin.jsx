@@ -50,6 +50,29 @@ function Admin() {
     }
   };
 
+  const handleDelete = async (feedbackId) => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/api/feedbacks/${feedbackId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        toast.success(`Deleted Feedback`);
+        setFeed(!feed);
+      } else {
+        toast.info('Login to Delete Feedback');
+      }
+    } catch (error) {
+      toast.error(`Error: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div className="lg:mt-28 mt-8 flex justify-center items-center flex-col">
@@ -129,6 +152,12 @@ function Admin() {
                       <span className="hover:underline text-gray-100">{e.userName}</span>
                     </a>
                   </div>
+                  <button
+                    onClick={() => handleDelete(e._id)}
+                    className="inline-flex m-2 items-center lg:px-2 p-1 lg:py-1 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             )

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAppContext } from '../Appcontext';
@@ -11,7 +10,7 @@ function RemDetails() {
     const [userIdError, setUserIdError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
-    const { logout,nam,pic,id,fet,setFet } = useAppContext();
+    const {id,fet,setFet } = useAppContext();
 
 
     const handleLogin = async (e) => {
